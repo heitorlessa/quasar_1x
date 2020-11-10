@@ -24,7 +24,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" content-class="bg-grey-1">
+    <q-drawer v-model="leftDrawerOpen" content-class="bg-grey-1" elevated>
       <q-list no-border link inset-delimiter>
         <q-item-label header class="text-grey-8"> Menu </q-item-label>
         <q-item :to="{ name: 'home' }" exact>
@@ -48,7 +48,7 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container class="buh">
       <transition enter-active-class="animated fadeIn" appear>
         <router-view />
       </transition>
@@ -71,4 +71,7 @@ export default {
 <style lang="sass" scoped>
 .menu__icons--branded
   font-size: 43px !important
+
+.buh
+  padding-left: 0 !important
 </style>
