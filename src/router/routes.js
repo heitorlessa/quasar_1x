@@ -3,7 +3,18 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', name: 'home', component: () => import('pages/Search.vue') }
+      {
+        path: '',
+        name: 'home',
+        alias: '/search',
+        component: () => import('pages/Search.vue')
+      },
+      {
+        name: 'searchResults',
+        path: '/search/results',
+        component: () => import('pages/FlightResults.vue'),
+        props: (route) => ({ ...route.params, ...route.query }) // converts query strings and params to props
+      }
     ]
   },
 

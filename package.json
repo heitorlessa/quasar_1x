@@ -18,6 +18,7 @@
     "fuse.js": "^6.4.3",
     "prettier": "^2.1.2",
     "quasar": "^1.0.0",
+    "vue-content-loader": "^0.2.3",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {
