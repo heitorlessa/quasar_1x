@@ -7,7 +7,7 @@
     >
       <div class="col-10">
         <q-list highlight>
-          <div class="row text-uppercase text-bold flight__departure--top">
+          <div class="row text-uppercase text-bold flight__headline">
             <div class="col">Departure</div>
             <div class="col text-right" data-test="flight-long-date">
               {{ details.departureDayMonthYear }}
@@ -40,7 +40,7 @@
                 {{ details.arrivalAirportCode }}
               </div>
               <div
-                class="q-caption capitalize text-secondary text-bold"
+                class="text-caption capitalize text-secondary text-bold"
                 data-test="flight-arrival-name"
               >
                 {{ details.arrivalAirportName }}
@@ -202,7 +202,7 @@ export default {
   font-size: 1.5rem
 
 .flight__price
-  font-size: 1.3rem
+  font-size: 1rem
 
 .q-list
   border: none
@@ -213,6 +213,6 @@ export default {
   min-height: 48px
   padding: 15px 16px
 
-.flight__departure--top
+.flight__headline
   color: #757575
 </style>

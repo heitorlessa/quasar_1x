@@ -14,6 +14,13 @@ const routes = [
         path: '/search/results',
         component: () => import('pages/FlightResults.vue'),
         props: (route) => ({ ...route.params, ...route.query }) // converts query strings and params to props
+      },
+      {
+        name: 'selectedFlight',
+        path: '/search/results/review',
+        component: () => import('pages/FlightSelection.vue'),
+        props: (route) => ({ ...route.params, ...route.query }), // converts query strings and params to props
+        meta: { requiresAuth: true }
       }
     ]
   },

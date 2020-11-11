@@ -48,7 +48,7 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container class="buh">
+    <q-page-container class="content">
       <transition enter-active-class="animated fadeIn" appear>
         <router-view />
       </transition>
@@ -72,6 +72,8 @@ export default {
 .menu__icons--branded
   font-size: 43px !important
 
-.buh
+.content
   padding-left: 0 !important
+  max-width: 978px
+  margin: 0 auto
 </style>
