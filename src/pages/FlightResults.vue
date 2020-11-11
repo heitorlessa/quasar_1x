@@ -162,15 +162,15 @@ export default {
      * this guarantees we attempt talking to Catalog service
      * if our authentication guards && profile module have an user in place
      */
-    // if (this.isAuthenticated) {
-    await this.$store.dispatch('catalog/fetchFlights', {
-      date: this.date,
-      departure: this.departure,
-      arrival: this.arrival
-    })
+    if (this.isAuthenticated) {
+      await this.$store.dispatch('catalog/fetchFlights', {
+        date: this.date,
+        departure: this.departure,
+        arrival: this.arrival
+      })
 
-    this.filteredFlights = this.sortByDeparture(this.flights)
-    // }
+      this.filteredFlights = this.sortByDeparture(this.flights)
+    }
   },
   methods: {
     /**
@@ -212,7 +212,7 @@ export default {
       flights: (state) => state.catalog.flights,
       loading: (state) => state.catalog.loading
     }),
-    // ...mapGetters('profile', ['isAuthenticated']),
+    ...mapGetters('profile', ['isAuthenticated']),
     maximumPrice: function () {
       return Math.max(...this.flights.map((filter) => filter.ticketPrice), 500)
     },
