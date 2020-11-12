@@ -84,7 +84,6 @@
                 mask="dddd, MMM D, YYYY"
                 color="primary"
                 today-btn
-                title="Flight departure"
                 @input="() => $refs.qDateProxy.hide()"
               />
             </div>
