@@ -23,6 +23,12 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('pages/Profile.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
         path: '/profile/bookings',
         name: 'bookings',
         component: () => import('pages/Bookings.vue'),

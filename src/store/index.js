@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import catalog from './catalog'
 import profile from './profile'
 import bookings from './bookings'
+import loyalty from './loyalty'
 
 Vue.use(Vuex)
 
@@ -22,7 +23,8 @@ export default function (/* { ssrContext } */) {
     modules: {
       catalog,
       profile,
-      bookings
+      bookings,
+      loyalty
     },
 
     // enable strict mode (adds overhead!)
