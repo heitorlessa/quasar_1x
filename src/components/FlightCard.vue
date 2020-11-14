@@ -182,7 +182,7 @@ export default {
 
 .flight__card
   min-width: 18rem
-  max-width: 32rem
+  max-width: 29rem
   margin: auto
   width: 100%
   border-radius: 0.93rem

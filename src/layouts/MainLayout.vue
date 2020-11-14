@@ -71,6 +71,7 @@ export default {
 <style lang="sass" scoped>
 .menu__icons--branded
   font-size: 43px !important
+  color: $primary
 
 .content
   padding-left: 0 !important

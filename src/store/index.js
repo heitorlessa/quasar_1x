@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 // import example from './module-example'
 import catalog from './catalog'
 import profile from './profile'
+import bookings from './bookings'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       catalog,
-      profile
+      profile,
+      bookings
     },
 
     // enable strict mode (adds overhead!)

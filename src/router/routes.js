@@ -21,6 +21,12 @@ const routes = [
         component: () => import('pages/FlightSelection.vue'),
         props: (route) => ({ ...route.params, ...route.query }), // converts query strings and params to props
         meta: { requiresAuth: true }
+      },
+      {
+        path: '/profile/bookings',
+        name: 'bookings',
+        component: () => import('pages/Bookings.vue'),
+        meta: { requiresAuth: true }
       }
     ]
   },
