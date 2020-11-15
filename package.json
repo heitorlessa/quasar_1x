@@ -10,7 +10,9 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^0.2.27",
     "@quasar/extras": "^1.0.0",
+    "aws-amplify": "^3.3.8",
     "axios": "^0.18.1",
     "core-js": "^3.7.0",
     "eslint-config-prettier": "^6.15.0",

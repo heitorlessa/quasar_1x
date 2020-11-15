@@ -33,6 +33,12 @@ const routes = [
         name: 'bookings',
         component: () => import('pages/Bookings.vue'),
         meta: { requiresAuth: true }
+      },
+      {
+        path: '/auth',
+        name: 'auth',
+        component: () => import('pages/Authentication.vue'),
+        props: (route) => ({ ...route.params, ...route.query }) // converts query strings and params to props
       }
     ]
   },
