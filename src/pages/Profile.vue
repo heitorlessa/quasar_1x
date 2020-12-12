@@ -19,17 +19,19 @@
       </div>
       <div class="wrapper">
         <div class="row loyalty__progress">
-          <div class="col-7 loyalty__progress--points">
+          <div class="col-6 loyalty__progress--points">
             <div class="text-h4 loyalty__points" data-test="loyalty-points">
               {{ loyalty.points || 0 }}
             </div>
             <div class="text-h6 text-primary text-bold">Points</div>
           </div>
-          <div class="col-5 loyalty__progress--next-tier">
+          <div class="col-6 loyalty__progress--next-tier">
             <div class="text-h4" data-test="loyalty-next-tier">
               {{ loyalty.percentage || 0 }}%
             </div>
-            <div class="text-h6 text-primary text-bold">Tier Progress</div>
+            <div class="text-h6 text-primary text-bold q-mt-xs">
+              Tier Progress
+            </div>
             <q-linear-progress
               size="1vh"
               :value="progressPercentage"
@@ -74,8 +76,10 @@
             </q-list>
           </div>
         </div>
+        <div class="row">
+          <amplify-sign-out data-test="authenticator"></amplify-sign-out>
+        </div>
       </div>
-      <amplify-sign-out></amplify-sign-out>
     </div>
   </div>
 </template>
@@ -83,7 +87,6 @@
 <script>
 // @ts-nocheck
 import { mapState, mapGetters } from 'vuex'
-// import { AmplifyEventBus } from 'aws-amplify-vue'
 
 const defaultDialogOpts = {
   cancel: true,
@@ -197,10 +200,6 @@ export default {
 </script>
 
 <style lang="sass">
-/**
- * Amplify authenticatior HOC as of now doesn't provide overriding mechanisms for UI
- * we use CSS Root variables along with an authentication-form injected class for consistent experience
- */
 @import '../css/app'
 
 a
@@ -224,4 +223,9 @@ a
 .profile__preferences-option
   &:hover
     cursor: pointer
+
+amplify-sign-out
+    padding: 0vmin 2vmin
+    width: 100%
+    margin-top: 10vh
 </style>

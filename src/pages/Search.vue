@@ -1,5 +1,5 @@
 <template>
-  <q-page class="container blah">
+  <q-page class="container">
     <div class="wrapper">
       <div class="heading">
         <div class="text-h4 search__headline" data-test="search-headline">

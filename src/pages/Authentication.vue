@@ -5,16 +5,15 @@
       :form-fields.prop="formFields"
       username-alias="username"
       data-test="authenticator"
+      validationErrors=""
     >
+      <amplify-toast />
       <amplify-sign-up
         slot="sign-up"
         username-alias="username"
         :form-fields.prop="formFields"
       ></amplify-sign-up>
-      <amplify-totp-setup
-        header-text="My Custom TOTP Setup Text"
-        slot="totp-setup"
-      ></amplify-totp-setup>
+      <amplify-totp-setup slot="totp-setup"></amplify-totp-setup>
     </amplify-authenticator>
 
     <amplify-sign-out v-if="authState == 'signedin'"></amplify-sign-out>
@@ -24,6 +23,7 @@
 <script>
 // @ts-ignore
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components'
+import { Hub } from 'aws-amplify'
 
 /**
  * Authentication view authenticates a customer and redirects to desired page if successful
@@ -39,13 +39,24 @@ export default {
   },
   created() {
     onAuthUIStateChange((authState, authData) => {
-      //   this.authState = authState
-      //   this.user = authData
+      this.authState = authState
+      this.user = authData
 
-      if (nextAuthState === AuthState.SignedIn) {
+      if (authState === AuthState.SignIn) {
+        console.info('Customer needs to sign in yet...')
+      }
+      if (authState === AuthState.SignedIn) {
         console.log('user successfully signed in!')
         console.log('user data: ', authData)
         this.$router.push({ name: this.redirectTo })
+      }
+    })
+
+    Hub.listen('auth', (data) => {
+      const event = data.payload?.event ?? ''
+      if (event.match(/_failure/)) {
+        console.error(data.payload.message)
+        this.$q.notify(data.payload.message)
       }
     })
   },
@@ -54,7 +65,8 @@ export default {
   },
   data() {
     return {
-      authState: '',
+      authState: undefined,
+      user: undefined,
       formFields: [
         {
           type: 'given_name',
@@ -95,36 +107,11 @@ export default {
 @import '../css/app'
 
 amplify-authenticator
-    display: flex
-    justify-content: center
-    align-items: center
-    height: 100vh
-    font-family: 'Raleway', 'Open Sans', sans-serif
-    min-width: 80vw
-    padding: 10vmin
-
-    --amplify-font-family: $typography-font-family
-    --amplify-primary-color: #FA3336
-
     @media only screen and (min-device-width: 700px)
-        margin: auto
+        margin: 0 auto
         padding: 15vmin
         min-width: 100%
 
-// amplify-authenticator
-//     display: flex
-//     justify-content: center
-//     align-items: center
-//     height: 100vh
-//     font-family: 'Raleway', 'Open Sans', sans-serif
-//     min-width: 80vw
-//     padding: 10vmin
-
-//     @media only screen and (min-device-width: 700px)
-//         margin: auto
-//         padding: 15vmin
-//         min-width: 100%
-
-//     --amplify-font-family: $typography-font-family
-//     --amplify-primary-color: #FA3336
+    amplify-toast > *
+        top: 50 !important
 </style>
