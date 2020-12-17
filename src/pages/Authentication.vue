@@ -7,7 +7,6 @@
       data-test="authenticator"
       validationErrors=""
     >
-      <amplify-toast />
       <amplify-sign-up
         slot="sign-up"
         username-alias="username"
@@ -24,6 +23,9 @@
 // @ts-ignore
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components'
 import { Hub } from 'aws-amplify'
+
+const noAuthMessage = 'user is undefined'
+const authMessageChannel = 'UI Auth'
 
 /**
  * Authentication view authenticates a customer and redirects to desired page if successful
@@ -45,6 +47,7 @@ export default {
       if (authState === AuthState.SignIn) {
         console.info('Customer needs to sign in yet...')
       }
+
       if (authState === AuthState.SignedIn) {
         console.log('user successfully signed in!')
         console.log('user data: ', authData)
@@ -52,11 +55,15 @@ export default {
       }
     })
 
-    Hub.listen('auth', (data) => {
+    Hub.listen(authMessageChannel, (data) => {
       const event = data.payload?.event ?? ''
-      if (event.match(/_failure/)) {
-        console.error(data.payload.message)
-        this.$q.notify(data.payload.message)
+      const message = data.payload?.message ?? ''
+
+      // Ignore message if customer hasn't attempted to login yet
+      if (message === noAuthMessage) return
+
+      if (event === 'ToastAuthError') {
+        this.$q.notify(message)
       }
     })
   },
@@ -111,7 +118,4 @@ amplify-authenticator
         margin: 0 auto
         padding: 15vmin
         min-width: 100%
-
-    amplify-toast > *
-        top: 50 !important
 </style>
