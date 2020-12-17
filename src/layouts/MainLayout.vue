@@ -24,7 +24,12 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" content-class="bg-grey-1" elevated>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      content-class="bg-grey-1"
+      elevated
+      @click.capture="drawerClick"
+    >
       <q-list no-border link inset-delimiter>
         <q-item-label header class="text-grey-8"> Menu </q-item-label>
         <q-item :to="{ name: 'home' }" exact>
@@ -61,8 +66,14 @@ export default {
   name: 'DefaultLayout',
   data() {
     return {
-      leftDrawer: true,
-      leftDrawerOpen: this.$q.platform.is.desktop
+      leftDrawerOpen: false
+    }
+  },
+  methods: {
+    // Hides drawer after customer clicks on menu item
+    drawerClick(e) {
+      this.leftDrawerOpen = !this.leftDrawerOpen
+      e.stopPropagation()
     }
   }
 }
