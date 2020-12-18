@@ -87,6 +87,7 @@
 <script>
 // @ts-nocheck
 import { mapState, mapGetters } from 'vuex'
+import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components'
 
 const defaultDialogOpts = {
   cancel: true,
@@ -167,19 +168,19 @@ export default {
     }
   },
   async mounted() {
-    /** Amplify clears out cookies and any storage that can map to users
-     * However it is on us to clear out our own store and redirect to Auth
-     * If customer decides to sign out we redirect it to home, and subsequentially to authentication
-     */
-    // AmplifyEventBus.$on('authState', (info) => {
-    //   if (info === 'signedOut') {
-    //     this.$store
-    //       .dispatch('profile/getSession')
-    //       .catch(
-    //         this.$router.push({ name: 'auth', query: { redirectTo: 'home' } })
-    //       )
-    //   }
-    // })
+    // Amplify clears out cookies and any storage that can map to users
+    // However it is on us to clear out our own store and redirect to Auth
+    // If customer decides to sign out we redirect it to home, and subsequentially to authentication
+
+    onAuthUIStateChange((authState, authData) => {
+      if (authState === AuthState.SignedOut) {
+        this.$store
+          .dispatch('profile/getSession')
+          .catch(
+            this.$router.push({ name: 'auth', query: { redirectTo: 'home' } })
+          )
+      }
+    })
 
     // authentication guards prevent authenticated users to view Profile
     // however, the component doesn't stop from rendering asynchronously

@@ -7,13 +7,15 @@ const routes = [
         path: '',
         name: 'home',
         alias: '/search',
-        component: () => import('pages/Search.vue')
+        component: () => import('pages/Search.vue'),
+        meta: { requiresAuth: true }
       },
       {
         name: 'searchResults',
         path: '/search/results',
         component: () => import('pages/FlightResults.vue'),
-        props: (route) => ({ ...route.params, ...route.query }) // converts query strings and params to props
+        props: (route) => ({ ...route.params, ...route.query }), // converts query strings and params to props
+        meta: { requiresAuth: true }
       },
       {
         name: 'selectedFlight',

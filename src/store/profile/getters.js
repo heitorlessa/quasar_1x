@@ -5,8 +5,7 @@
  * @see {@link getSession} for more information on action that calls isAuthenticated
  */
 export const isAuthenticated = (state) => {
-  return true
-  // return !!state.user
+  return !!state.user
 }
 
 export const firstName = (state) => {
