@@ -18,7 +18,7 @@ import axios from 'axios'
  * @returns {promise} - Promise representing updated whether loyalty information has been updated in the store
  * @see {@link SET_LOYALTY} for more info on mutation
  * @example
- * // exerpt from src/views/Profile.vuw
+ * // exerpt from src/pages/Profile.vuw
  * async mounted() {
  *    if (this.isAuthenticated) {
  *        await this.$store.dispatch("loyalty/fetchLoyalty");

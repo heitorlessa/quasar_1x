@@ -22,7 +22,7 @@ import axios from 'axios'
  * @returns {promise} - Promise representing whether bookings from Booking service have been updated in the store
  * @see {@link SET_BOOKINGS} for more info on mutation
  * @example
- * // excerpt from src/views/Bookings.vue
+ * // excerpt from src/pages/Bookings.vue
  * import { mapState, mapGetters } from "vuex";
  * ...
  * async mounted() {
@@ -96,7 +96,7 @@ export async function fetchBooking(
  * @param {Flight} obj.outboundFlight - Outbound Flight
  * @returns {promise} - Promise representing booking effectively made in the Booking service.
  * @example
- * // exerpt from src/views/FlightSelection.vue
+ * // exerpt from src/pages/FlightSelection.vue
  * methods: {
  *    async payment() {
  *        let options = {

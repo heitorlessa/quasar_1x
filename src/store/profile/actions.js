@@ -14,7 +14,7 @@ import { Auth } from 'aws-amplify'
  * @see {@link SET_USER} for more info on mutation
  * @returns {promise} - Promise representing updated profile information in the store
  * @example
- * // exerpt from src/views/Profile.vue
+ * // exerpt from src/pages/Profile.vue
  * onAuthUIStateChange((authState, authData) => {
  *   if (authState === AuthState.SignedOut) {
  *     this.$store
