@@ -11,8 +11,17 @@ export const SET_BOOKINGS = (state, bookings) => {
     state.bookings = bookings
   } else {
     // flatten array of bookings and remove possible duplicates due to network issues
-    let newBookings = [...bookings, state.bookings].flat(5)
-    state.bookings = [...new Set(newBookings)]
+    let dedup = new Set()
+    let allBookings = [...bookings, state.bookings].flat(5)
+
+    state.bookings = allBookings.filter((booking) => {
+      let dup = dedup.has(booking.id)
+      dedup.add(booking.id)
+      return !dup
+    })
+
+    console.log('Bookings')
+    console.table(state.bookings)
   }
 }
 

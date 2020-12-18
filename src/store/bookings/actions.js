@@ -60,7 +60,7 @@ export async function fetchBooking(
     }
 
     console.log('Fetching booking data')
-    console.log(bookingFilter)
+    console.table(bookingFilter)
     // const {
     //   // @ts-ignore
     //   data: {
@@ -71,7 +71,7 @@ export async function fetchBooking(
     const { data: bookingData } = await axios.get('/mocks/bookings.json')
     let bookings = bookingData.map((booking) => new Booking(booking))
 
-    console.log(bookings)
+    console.table(bookings)
 
     commit('SET_BOOKINGS', bookings)
     commit('SET_BOOKING_PAGINATION', paginationToken)
