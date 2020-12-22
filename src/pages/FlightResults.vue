@@ -70,7 +70,7 @@
           <flight-loader></flight-loader>
         </div>
         <div v-if="filteredFlights.length && !loading">
-          <span class="results__headline" data-test="results-headline"
+          <span class="results__headline text-h6" data-test="results-headline"
             >Select your flight</span
           >
         </div>
@@ -226,8 +226,8 @@ export default {
 <style lang="sass" scoped>
 @import '../css/app'
 
-.heading
-  margin-top: 5.5rem
+// .heading
+//   margin-top: 5.5rem
 
 .heading__error--cta
   margin: auto
