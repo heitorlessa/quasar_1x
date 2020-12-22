@@ -4,6 +4,7 @@
       v-if="date && departure && arrival"
       :departure="departure"
       :arrival="arrival"
+      :date="date"
     />
     <!-- <q-page-sticky
       v-if="date && departure && arrival"
@@ -225,9 +226,6 @@ export default {
 
 <style lang="sass" scoped>
 @import '../css/app'
-
-// .heading
-//   margin-top: 5.5rem
 
 .heading__error--cta
   margin: auto

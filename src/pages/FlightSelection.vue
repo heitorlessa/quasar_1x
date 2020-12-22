@@ -4,6 +4,7 @@
       v-if="this.selectedFlight"
       :departure="this.selectedFlight.departureAirportCode"
       :arrival="this.selectedFlight.arrivalAirportCode"
+      :date="this.selectedFlight.departureDate"
     />
     <div class="flights">
       <div class="heading">
@@ -347,9 +348,6 @@ export default {
 
 <style lang="sass" scoped>
 @import '../css/app'
-
-.flights
-  margin-top: $content-toolbar-margin
 
 .text-h5
   margin-top: 2rem
