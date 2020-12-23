@@ -138,18 +138,49 @@
                     </q-item-section>
                   </q-item>
 
-                  <q-item-label header>Schedule</q-item-label>
+                  <q-item-label header>Departure time</q-item-label>
                   <q-item dense>
                     <q-item-section avatar>
                       <q-icon name="schedule" />
                     </q-item-section>
                     <q-item-section>
-                      <!-- TODO - Bring two range picks here - Departure / Arrival
-                          Outbound
-                          Inbound
-                       -->
-                      <q-slider color="secondary" label label-always />
-                      <q-slider color="secondary" label label-always />
+                      <q-range
+                        color="secondary"
+                        v-model="departureFilter"
+                        :min="earliestDeparture"
+                        :max="latestDeparture"
+                        :left-label-value="`From: ${formatTimeRange(
+                          departureFilter.min
+                        )}`"
+                        :right-label-value="`Until: ${formatTimeRange(
+                          departureFilter.max
+                        )}`"
+                        label
+                        dense
+                      />
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item-label header>Arrival time</q-item-label>
+                  <q-item dense>
+                    <q-item-section avatar>
+                      <q-icon name="schedule" />
+                    </q-item-section>
+                    <q-item-section>
+                      <q-range
+                        color="secondary"
+                        v-model="arrivalFilter"
+                        :min="earliestArrival"
+                        :max="latestArrival"
+                        :left-label-value="`From: ${formatTimeRange(
+                          arrivalFilter.min
+                        )}`"
+                        :right-label-value="`Until: ${formatTimeRange(
+                          arrivalFilter.max
+                        )}`"
+                        label
+                        dense
+                      />
                     </q-item-section>
                   </q-item>
                 </q-card>
@@ -205,6 +236,14 @@ export default {
       maxPriceFilter: {
         min: 100,
         max: 1000
+      },
+      departureFilter: {
+        min: this.$store.getters['catalog/earliestDeparture'],
+        max: this.$store.getters['catalog/latestDeparture']
+      },
+      arrivalFilter: {
+        min: this.$store.getters['catalog/earliestArrival'],
+        max: this.$store.getters['catalog/latestArrival']
       }
     }
   },
@@ -214,8 +253,17 @@ export default {
     },
     ...mapGetters({
       minimumPrice: 'catalog/minimumPrice',
-      maximumPrice: 'catalog/maximumPrice'
+      maximumPrice: 'catalog/maximumPrice',
+      earliestArrival: 'catalog/earliestArrival',
+      earliestDeparture: 'catalog/earliestDeparture',
+      latestArrival: 'catalog/latestArrival',
+      latestDeparture: 'catalog/latestDeparture'
     })
+  },
+  methods: {
+    formatTimeRange(time) {
+      return date.formatDate(time, 'HH:mm')
+    }
   },
   mounted() {
     console.info(`Route -> ${this.$router.currentRoute.name}`)
