@@ -125,15 +125,15 @@
                       <q-icon name="attach_money" />
                     </q-item-section>
                     <q-item-section>
-                      <q-slider
+                      <q-range
                         color="secondary"
                         v-model="maxPriceFilter"
                         :min="minimumPrice"
+                        :left-label-value="'Min: ' + maxPriceFilter.min"
                         :max="maximumPrice"
+                        :right-label-value="'Max: ' + maxPriceFilter.max"
                         label
-                        :label-value="'Max price: ' + maxPriceFilter"
                         dense
-                        label-always
                       />
                     </q-item-section>
                   </q-item>
@@ -202,7 +202,10 @@ export default {
         'Guarulhos Sao Paulo',
         'BCN'
       ],
-      maxPriceFilter: 1000
+      maxPriceFilter: {
+        min: 100,
+        max: 1000
+      }
     }
   },
   computed: {
