@@ -99,10 +99,12 @@
               >
               </q-btn>
               <q-dialog v-model="filters">
-                <q-card style="width: 300px" class="q-pb-md">
-                  <q-card-section class="filter__toolbar">
-                    <div class="row items-baseline">
-                      <div class="text-h6 text-white col">Filters</div>
+                <q-card style="width: 300px" class="">
+                  <q-card-section class="filter__toolbar q-pa-none">
+                    <div
+                      class="row items-baseline filter__toolbar--header q-pa-sm"
+                    >
+                      <div class="text-subtitle1 text-white col">Filters</div>
                       <div class="text-subtitle1 text-right text-white col">
                         <q-btn
                           no-caps
@@ -110,8 +112,28 @@
                           dense
                           flat
                           text-color="primary"
-                          size="0.95rem"
+                          size="0.90rem"
                           label="Reset"
+                          padding="0"
+                          @click="filters = false"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="row items-baseline filter__toolbar--subheader q-pa-sm text"
+                    >
+                      <div class="text-caption col">
+                        Results [filtered/total]
+                      </div>
+                      <div class="text-right col">
+                        <q-btn
+                          class="text-bold"
+                          no-caps
+                          dense
+                          flat
+                          text-color="primary"
+                          size="0.90rem"
+                          label="Apply"
                           padding="0"
                           @click="filters = false"
                         />
@@ -162,7 +184,7 @@
                   </q-item>
 
                   <q-item-label header>Arrival time</q-item-label>
-                  <q-item dense>
+                  <q-item dense class="q-mb-md">
                     <q-item-section avatar>
                       <q-icon name="schedule" />
                     </q-item-section>
@@ -295,5 +317,8 @@ export default {
   top: 24px
 
 .filter__toolbar
-  background-color: #044389
+  &--header
+    background-color: #044389
+  &--subheader
+    background-color: $grey-2
 </style>
