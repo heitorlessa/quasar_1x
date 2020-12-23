@@ -99,42 +99,57 @@
               >
               </q-btn>
               <q-dialog v-model="filters">
-                <q-card style="width: 300px" class="q-px-sm q-pb-md">
-                  <q-card-section>
-                    <div class="text-h6">Volumes</div>
+                <q-card style="width: 300px" class="q-pb-md">
+                  <q-card-section class="filter__toolbar">
+                    <div class="row items-baseline">
+                      <div class="text-h6 text-white col">Filters</div>
+                      <div class="text-subtitle1 text-right text-white col">
+                        <q-btn
+                          no-caps
+                          class="text-white"
+                          dense
+                          flat
+                          text-color="primary"
+                          size="0.95rem"
+                          label="Reset"
+                          padding="0"
+                          @click="filters = false"
+                        />
+                      </div>
+                    </div>
                   </q-card-section>
 
-                  <q-item-label header>Media volume</q-item-label>
+                  <q-item-label header>Price</q-item-label>
                   <q-item dense>
                     <q-item-section avatar>
-                      <q-icon name="volume_up" />
-                    </q-item-section>
-                    <q-item-section>
-                      <q-slider color="teal" v-model="slideVol" :step="0" />
-                    </q-item-section>
-                  </q-item>
-
-                  <q-item-label header>Alarm volume</q-item-label>
-                  <q-item dense>
-                    <q-item-section avatar>
-                      <q-icon name="alarm" />
-                    </q-item-section>
-                    <q-item-section>
-                      <q-slider color="teal" v-model="slideAlarm" :step="0" />
-                    </q-item-section>
-                  </q-item>
-
-                  <q-item-label header>Ring volume</q-item-label>
-                  <q-item dense>
-                    <q-item-section avatar>
-                      <q-icon name="vibration" />
+                      <q-icon name="attach_money" />
                     </q-item-section>
                     <q-item-section>
                       <q-slider
-                        color="teal"
-                        v-model="slideVibration"
-                        :step="0"
+                        color="secondary"
+                        v-model="maxPriceFilter"
+                        :min="minimumPrice"
+                        :max="maximumPrice"
+                        label
+                        :label-value="'Max price: ' + maxPriceFilter"
+                        dense
+                        label-always
                       />
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item-label header>Schedule</q-item-label>
+                  <q-item dense>
+                    <q-item-section avatar>
+                      <q-icon name="schedule" />
+                    </q-item-section>
+                    <q-item-section>
+                      <!-- TODO - Bring two range picks here - Departure / Arrival
+                          Outbound
+                          Inbound
+                       -->
+                      <q-slider color="secondary" label label-always />
+                      <q-slider color="secondary" label label-always />
                     </q-item-section>
                   </q-item>
                 </q-card>
@@ -144,61 +159,12 @@
         </q-field>
       </div>
     </div>
-
-    <!-- <div class="flight__filters col-3 text-center q-ml-sm">
-        <q-btn
-          dense
-          icon="tune"
-          size="0.75rem"
-          label="Refine"
-          outline
-          :disable="this.$router.currentRoute.name != 'searchResults'"
-          @click="filters = true"
-        />
-
-        <q-dialog v-model="filters">
-          <q-card style="width: 300px" class="q-px-sm q-pb-md">
-            <q-card-section>
-              <div class="text-h6">Volumes</div>
-            </q-card-section>
-
-            <q-item-label header>Media volume</q-item-label>
-            <q-item dense>
-              <q-item-section avatar>
-                <q-icon name="volume_up" />
-              </q-item-section>
-              <q-item-section>
-                <q-slider color="teal" v-model="slideVol" :step="0" />
-              </q-item-section>
-            </q-item>
-
-            <q-item-label header>Alarm volume</q-item-label>
-            <q-item dense>
-              <q-item-section avatar>
-                <q-icon name="alarm" />
-              </q-item-section>
-              <q-item-section>
-                <q-slider color="teal" v-model="slideAlarm" :step="0" />
-              </q-item-section>
-            </q-item>
-
-            <q-item-label header>Ring volume</q-item-label>
-            <q-item dense>
-              <q-item-section avatar>
-                <q-icon name="vibration" />
-              </q-item-section>
-              <q-item-section>
-                <q-slider color="teal" v-model="slideVibration" :step="0" />
-              </q-item-section>
-            </q-item>
-          </q-card>
-        </q-dialog>
-      </div> -->
   </div>
 </template>
 
 <script>
 import { date } from 'quasar'
+import { mapGetters } from 'vuex'
 
 export default {
   /**
@@ -235,16 +201,21 @@ export default {
         'London Gatwick',
         'Guarulhos Sao Paulo',
         'BCN'
-      ]
+      ],
+      maxPriceFilter: 1000
     }
   },
   computed: {
     shortDate() {
       return date.formatDate(this.date, 'ddd, DD MMM')
-    }
+    },
+    ...mapGetters({
+      minimumPrice: 'catalog/minimumPrice',
+      maximumPrice: 'catalog/maximumPrice'
+    })
   },
   mounted() {
-    console.info(`Route -> ${this.router.currentRoute.name}`)
+    console.info(`Route -> ${this.$router.currentRoute.name}`)
   }
 }
 </script>
@@ -253,9 +224,9 @@ export default {
 @import '../css/app'
 
 .flight__toolbar
-  padding: 0 1.5rem
+  padding: 0 0.8rem
   @media only screen and (min-device-width: 700px)
-      padding: 0 15vw
+      padding: 0 17vw
       margin: 0 20px
 
 .q-field__native
@@ -271,4 +242,7 @@ export default {
 
 .q-field__label
   top: 24px
+
+.filter__toolbar
+  background-color: #044389
 </style>
