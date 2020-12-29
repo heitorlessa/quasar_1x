@@ -6,65 +6,6 @@
       :arrival="arrival"
       :date="date"
     />
-    <!-- <q-page-sticky
-      v-if="date && departure && arrival"
-      position="top-right"
-      :offset="[15, 13]"
-    >
-      <q-fab flat icon="tune" direction="left">
-        <q-fab-action color="secondary" icon="attach_money" glossy>
-          <q-popup-edit
-            @save="setPrice"
-            title="Max Price filter"
-            buttons
-            v-model="maxPriceFilter"
-          >
-            <q-slider
-              color="secondary"
-              :min="minimumPrice"
-              :max="maximumPrice"
-              label
-              label-always
-              v-model="maxPriceFilter"
-              class="filter__price"
-            />
-          </q-popup-edit>
-        </q-fab-action>
-        <q-fab-action color="secondary" icon="schedule" glossy>
-          <q-popup-edit title="Schedule filter">
-            <q-datetime
-              type="time"
-              format24h
-              format="HH:mm"
-              format-model="date"
-              placeholder="Depart at"
-              clearable
-              @input="setDeparture"
-              v-model="departureTimeFilter"
-              class="filter__departure"
-            />
-            <q-datetime
-              type="time"
-              format24h
-              format="HH:mm"
-              format-model="date"
-              placeholder="Arrive by"
-              clearable
-              @input="setArrival"
-              v-model="arrivalTimeFilter"
-              class="filter__arrival"
-            />
-          </q-popup-edit>
-        </q-fab-action>
-        <q-fab-action
-          color="secondary"
-          icon="cancel"
-          @click="filteredFlights = flights"
-          glossy
-          class="filter__cta"
-        />
-      </q-fab>
-    </q-page-sticky> -->
     <div class="heading">
       <div class="q-headline text-primary text-center">
         <div class="loader" v-if="loading">
@@ -199,6 +140,10 @@ export default {
       this.filteredFlights = this.filterBySchedule(this.flights, {
         arrival: this.arrivalTimeFilter
       })
+    },
+    filterFlights(filters) {
+      console.info('Received filters')
+      console.table(filters)
     }
   },
   /**

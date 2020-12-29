@@ -83,7 +83,7 @@
                 size="0.75rem"
                 label="Filter"
                 padding="0"
-                @click="filters = true"
+                @click="toggleFilters"
               >
               </q-btn>
               <span> | </span>
@@ -161,275 +161,7 @@
                   </q-item>
                 </q-list>
               </q-btn-dropdown>
-              <q-dialog v-model="filters">
-                <q-card style="width: 300px">
-                  <q-card-section class="filter__toolbar q-pa-none">
-                    <div
-                      class="row items-baseline filter__toolbar--header q-pa-sm"
-                    >
-                      <div class="text-subtitle1 text-white col">Filters</div>
-                      <div class="text-subtitle1 text-right text-white col">
-                        <q-btn
-                          no-caps
-                          class="text-white"
-                          dense
-                          flat
-                          text-color="primary"
-                          size="0.90rem"
-                          label="Reset"
-                          padding="0"
-                          @click="filters = false"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="row items-baseline filter__toolbar--subheader q-pa-sm text"
-                    >
-                      <div class="text-caption col">
-                        Results [filtered/total]
-                      </div>
-                      <div class="text-right col">
-                        <q-btn
-                          class="text-bold"
-                          no-caps
-                          dense
-                          flat
-                          text-color="primary"
-                          size="0.90rem"
-                          label="Apply"
-                          padding="0"
-                          @click="filters = false"
-                        />
-                      </div>
-                    </div>
-                  </q-card-section>
-
-                  <q-item-label
-                    header
-                    class="text-center q-pb-none text-primary"
-                    >Price range
-                  </q-item-label>
-                  <div class="q-pa-lg pricing__range">
-                    <div
-                      class="col-12 pricing__range--content shadow-up-3 bg-white row text-center"
-                    >
-                      <div class="col-6">
-                        <q-select
-                          v-model="priceFilter.min"
-                          class="pricing_minimum cursor-pointer"
-                          color="primary"
-                          :options="pricingOptions"
-                          borderless
-                          dense
-                          hide-dropdown-icon
-                          hide-bottom-space
-                          item-aligned
-                          input-class="pricing__range--input"
-                        >
-                          <template v-slot:before>
-                            <span
-                              class="text-left text-subtitle2 filter__option--before q-pl-xs"
-                              >from:</span
-                            >
-                          </template>
-                          <template v-slot:selected>
-                            <div
-                              class="text-bold filter__option--value text-subtitle2"
-                            >
-                              {{ priceFilter.min }}
-                            </div>
-                          </template>
-                        </q-select>
-                      </div>
-                      <div class="col-6 pricing__max">
-                        <q-select
-                          v-model="priceFilter.max"
-                          class="pricing_maximum cursor-pointer"
-                          color="primary"
-                          :options="pricingOptions"
-                          borderless
-                          dense
-                          hide-dropdown-icon
-                          hide-bottom-space
-                          item-aligned
-                          input-class="pricing__range--input"
-                        >
-                          <template v-slot:before>
-                            <span
-                              class="text-left text-subtitle2 filter__option--before text-dark q-pl-md"
-                              >until:</span
-                            >
-                          </template>
-                          <template v-slot:selected>
-                            <div
-                              class="text-bold filter__option--value text-subtitle2"
-                            >
-                              {{ priceFilter.max }}
-                            </div>
-                          </template>
-                        </q-select>
-                      </div>
-                    </div>
-                  </div>
-                  <q-separator />
-
-                  <q-item-label
-                    header
-                    class="text-center q-pb-none text-primary"
-                    >Departure window</q-item-label
-                  >
-                  <div class="q-pa-lg schedule__range">
-                    <div
-                      class="col-12 schedule__range--content shadow-up-3 bg-white row text-center"
-                    >
-                      <div class="col-6">
-                        <q-field
-                          class="departure__earliest cursor-pointer"
-                          borderless
-                          stack-label
-                        >
-                          <template v-slot:control>
-                            <q-popup-proxy>
-                              <div>
-                                <q-time
-                                  class="text-center"
-                                  v-model="departureFilter.min"
-                                  now-btn
-                                >
-                                  <q-btn
-                                    label="Close"
-                                    flat
-                                    color="primary"
-                                    v-close-popup
-                                  />
-                                </q-time>
-                              </div>
-                            </q-popup-proxy>
-                            <span class="full-width text-center text-subtitle2"
-                              >earliest:
-                              <span
-                                class="text-bold filter__option--value departure__earliest--value"
-                                >{{ departureFilter.min }}
-                              </span>
-                            </span>
-                          </template>
-                        </q-field>
-                      </div>
-                      <div class="col-6 departure__max">
-                        <q-field
-                          class="departure__latest cursor-pointer"
-                          borderless
-                          stack-label
-                        >
-                          <template v-slot:control>
-                            <q-popup-proxy>
-                              <div>
-                                <q-time
-                                  class="text-center"
-                                  v-model="departureFilter.max"
-                                  now-btn
-                                >
-                                  <q-btn
-                                    label="Close"
-                                    flat
-                                    color="primary"
-                                    v-close-popup
-                                  />
-                                </q-time>
-                              </div>
-                            </q-popup-proxy>
-                            <span class="full-width text-center text-subtitle2"
-                              >latest:
-                              <span
-                                class="text-bold filter__option--value departure__latest--value"
-                                >{{ departureFilter.max }}
-                              </span>
-                            </span>
-                          </template>
-                        </q-field>
-                      </div>
-                    </div>
-                  </div>
-                  <q-separator />
-                  <q-item-label
-                    header
-                    class="text-center q-pb-none text-primary"
-                    >Arrival window</q-item-label
-                  >
-                  <div class="q-pa-lg schedule__range">
-                    <div
-                      class="col-12 schedule__range--content shadow-up-3 bg-white row text-center"
-                    >
-                      <div class="col-6">
-                        <q-field
-                          class="arrival__earliest cursor-pointer"
-                          borderless
-                          stack-label
-                        >
-                          <template v-slot:control>
-                            <q-popup-proxy>
-                              <div>
-                                <q-time
-                                  class="text-center"
-                                  v-model="arrivalFilter.min"
-                                  now-btn
-                                >
-                                  <q-btn
-                                    label="Close"
-                                    flat
-                                    color="primary"
-                                    v-close-popup
-                                  />
-                                </q-time>
-                              </div>
-                            </q-popup-proxy>
-                            <span class="full-width text-center text-subtitle2"
-                              >earliest:
-                              <span
-                                class="text-bold filter__option--value arrival__earliest--value"
-                                >{{ arrivalFilter.min }}
-                              </span>
-                            </span>
-                          </template>
-                        </q-field>
-                      </div>
-                      <div class="col-6 arrival__max">
-                        <q-field
-                          class="arrival__latest cursor-pointer"
-                          borderless
-                          stack-label
-                        >
-                          <template v-slot:control>
-                            <q-popup-proxy>
-                              <div>
-                                <q-time
-                                  class="text-center"
-                                  v-model="arrivalFilter.max"
-                                  now-btn
-                                >
-                                  <q-btn
-                                    label="Close"
-                                    flat
-                                    color="primary"
-                                    v-close-popup
-                                  />
-                                </q-time>
-                              </div>
-                            </q-popup-proxy>
-                            <span class="full-width text-center text-subtitle2"
-                              >latest:
-                              <span
-                                class="text-bold filter__option--value arrival__latest--value"
-                                >{{ arrivalFilter.max }}
-                              </span>
-                            </span>
-                          </template>
-                        </q-field>
-                      </div>
-                    </div>
-                  </div>
-                </q-card>
-              </q-dialog>
+              <flight-toolbar-filters ref="filters" @apply="applyFilters" />
             </div>
           </template>
         </q-field>
@@ -441,6 +173,7 @@
 <script>
 import { date } from 'quasar'
 import { mapGetters } from 'vuex'
+import FlightToolbarFilters from './FlightToolbarFilters.vue'
 
 const SortPreference = Object.freeze({
   LowestPrice: 'lowestPrice',
@@ -464,6 +197,9 @@ export default {
    * </flight-toolbar>
    */
   name: 'FlightToolbar',
+  components: {
+    FlightToolbarFilters
+  },
   props: {
     /**
      * @param {string} departure - Sets departure airport code (IATA)
@@ -477,7 +213,6 @@ export default {
   },
   data() {
     return {
-      filters: false,
       options: [
         'London Heathrow',
         'Amsterdam Schipol',
@@ -485,21 +220,8 @@ export default {
         'Guarulhos Sao Paulo',
         'BCN'
       ],
-      priceFilter: {
-        min: 0,
-        max: 1000
-      },
-      departureFilter: {
-        min: '06:00',
-        max: '23:00'
-      },
-      arrivalFilter: {
-        min: '06:00',
-        max: '23:00'
-      },
       sortSelection: '',
-      SortPreference,
-      pricingOptions: this.$store.getters['catalog/priceRange']
+      SortPreference
     }
   },
   computed: {
@@ -507,18 +229,41 @@ export default {
       return date.formatDate(this.date, 'ddd, DD MMM')
     }
   },
-  filters: {
-    formatDate: function (value, token) {
-      console.info(`Formatting value: ${value}`)
-      if (!value) return 'invalid date'
-      if (!token) token = 'ddd, MMM D [at] hh:mm'
-
-      return date.formatDate(value, token)
-    }
-  },
   methods: {
-    formatTimeRange(time) {
-      return date.formatDate(time, 'HH:mm')
+    /**
+     * Apply flight filters
+     *
+     * @param {object} obj - Object containing flight filters
+     * @param {object} obj.pricing - Price filters
+     * @param {number} obj.pricing.min - Minimum flight ticket price
+     * @param {number} obj.pricing.max - Maximum flight ticket price
+     * @param {object} obj.departure - Departure filters
+     * @param {number} obj.departure.min - Earliest departure time
+     * @param {number} obj.departure.max - Latest departure time
+     * @param {object} obj.arrival - Arrival filters
+     * @param {number} obj.arrival.min - Earliest arrival time
+     * @param {number} obj.arrival.max - Latest arrival time
+     * @todo Apply hour to current date set in Toolbar
+     * @todo Call fetchFlights action with filters
+     *
+     * @see FlightToolbarFilters - Event emitter
+     */
+    applyFilters({ pricing, departure, arrival }) {
+      let minDeparture = new Date(`${this.date}T${departure.min}`)
+      let maxDeparture = new Date(`${this.date}T${departure.max}`)
+      let minArrival = new Date(`${this.date}T${arrival.min}`)
+      let maxArrival = new Date(`${this.date}T${arrival.max}`)
+
+      console.log('Departure min: ', minDeparture.toISOString())
+      console.log('Departure max: ', maxDeparture.toISOString())
+      console.log('Arrival min: ', minDeparture.toISOString())
+      console.log('Arrival max: ', maxDeparture.toISOString())
+
+      console.log(`Max price ${pricing.max}`)
+      console.log(`Min price ${pricing.min}`)
+    },
+    toggleFilters() {
+      this.$refs['filters'].show()
     },
     /**
      * Sort flight results by a given preference e.g. price, schedule
@@ -551,9 +296,6 @@ export default {
       }
       this.sortSelection = preference
     }
-  },
-  mounted() {
-    console.info(`Route -> ${this.$router.currentRoute.name}`)
   }
 }
 </script>
