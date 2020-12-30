@@ -15,7 +15,7 @@
         label="Departure airport"
         hint="Minimum 3 characters for autocomplete"
         class="home-icons search__options--input search__departure text-bold"
-        input-style="search__departure--suggestion"
+        input-class="search__options--input"
         :min-characters="3"
         :options="suggestionList"
         option-label="name"
@@ -26,12 +26,12 @@
         @filter="fuzzySearchFilter"
         display-value-sanitize
         use-input
-        item-aligned
         hide-dropdown-icon
         clearable
         hide-hint
         hide-selected
         fill-input
+        behavior="menu"
       >
         <template v-slot:before>
           <q-icon name="flight_takeoff" color="primary" class="field-icon" />
@@ -44,7 +44,7 @@
         label="Arrival airport"
         hint="Mininum 3 characters for autocomplete"
         class="home-icons search__options--input search__arrival text-bold"
-        input-style="search__arrival--suggestion"
+        input-class="search__options--input"
         :min-characters="3"
         :options="suggestionList"
         option-label="name"
@@ -61,6 +61,7 @@
         hide-hint
         hide-selected
         fill-input
+        behavior="menu"
       >
         <template v-slot:before>
           <q-icon name="flight_land" color="primary" class="field-icon" />
