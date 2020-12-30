@@ -6,8 +6,7 @@
       <div class="flight__filters--departure col">
         <q-select
           v-model="departure"
-          class="search__options--input flight__departure--toolbar no-padding"
-          :options="options"
+          class="flight__departure--toolbar no-padding"
           label="From"
           borderless
           dense
@@ -18,18 +17,40 @@
           hide-hint
           fill-input
           hide-bottom-space
-          input-class="search__options--content"
+          input-class="search__options--input"
           :disable="this.$router.currentRoute.name != 'searchResults'"
-        />
+          :min-characters="3"
+          :options="suggestionList"
+          option-label="code"
+          option-value="code"
+          options-dense
+          emit-value
+          input-debounce="200"
+          @filter="fuzzySearchFilter"
+          display-value-sanitize
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+              <q-item-section avatar>
+                <q-icon name="local_airport" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label v-html="scope.opt.label" />
+                <q-item-label class="text-subtitle1"
+                  >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
+                >
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
       </div>
       <div class="flight__filters--arrival col">
         <q-select
           v-model="arrival"
-          class="search__options--input flight__arrival--toolbar no-padding"
+          class="flight__arrival--toolbar no-padding"
           label="To"
           borderless
           dense
-          :options="options"
           use-input
           item-aligned
           hide-selected
@@ -37,9 +58,32 @@
           hide-hint
           fill-input
           hide-bottom-space
-          input-class="search__options--content"
+          input-class="search__options--input"
           :disable="this.$router.currentRoute.name != 'searchResults'"
-        />
+          :min-characters="3"
+          :options="suggestionList"
+          option-label="code"
+          option-value="code"
+          map-options
+          emit-value
+          input-debounce="200"
+          @filter="fuzzySearchFilter"
+          display-value-sanitize
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+              <q-item-section avatar>
+                <q-icon name="local_airport" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label v-html="scope.opt.label" />
+                <q-item-label class="text-subtitle1"
+                  >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
+                >
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
       </div>
       <div class="flight__filters--date col-4">
         <q-field
@@ -176,6 +220,36 @@ import { date } from 'quasar'
 import { mapGetters } from 'vuex'
 import FlightToolbarFilters from './FlightToolbarFilters.vue'
 import { SortPreference } from '../shared/enums'
+import airports from '../store/catalog/airports.json'
+import Fuse from 'fuse.js'
+
+/**
+ * parse list of airports provided from Catalog module
+ *
+ * @return {object} - list of airports following auto-suggestion Quasar component contract
+ */
+const parseAirports = () => {
+  return airports.map((country) => {
+    return {
+      city: country.city,
+      name: country.name,
+      code: country.code
+    }
+  })
+}
+
+const airportList = parseAirports()
+
+// Fuzzy search config for Fuse
+const fuzeOpts = {
+  shouldSort: true,
+  threshold: 0.3,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 10,
+  minMatchCharLength: 3,
+  keys: ['city', 'code', 'name']
+}
 
 export default {
   /**
@@ -208,15 +282,9 @@ export default {
   },
   data() {
     return {
-      options: [
-        'London Heathrow',
-        'Amsterdam Schipol',
-        'London Gatwick',
-        'Guarulhos Sao Paulo',
-        'BCN'
-      ],
       sortSelection: '',
-      SortPreference
+      SortPreference,
+      suggestionList: airportList
     }
   },
   computed: {
@@ -275,6 +343,37 @@ export default {
     sortResults(preference) {
       this.$store.dispatch('catalog/sortFlightsByPreference', preference)
       this.sortSelection = preference
+    },
+    fuzzySearchFilter(value, update, abort) {
+      console.log('entering filter...')
+      // Min 3 chars for autocomplete
+      if (value.length < 3) {
+        abort()
+        return
+      }
+
+      update(
+        () => {
+          // reset the list if search was cleared
+          if (value === '') {
+            this.suggestionList = airportList
+          }
+
+          let fuse = new Fuse(airportList, fuzeOpts)
+          let result = fuse.search(value.toLowerCase())
+          this.suggestionList = result.map((i) => i.item)
+        },
+        (ref) => {
+          if (
+            value !== '' &&
+            ref.options.length > 0 &&
+            ref.optionIndex === -1
+          ) {
+            ref.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
+            ref.toggleOption(ref.options[ref.optionIndex], true) // toggle the focused option
+          }
+        }
+      )
     }
   }
 }
@@ -293,12 +392,9 @@ export default {
   padding-top: 0 !important
 
 .search__options--input
-  width: 17vw !important
-  cursor: text
-
-.search__options--content
   color: $primary
   font-weight: bold
+  cursor: pointer
 
 .q-field__label
   top: 24px
@@ -322,4 +418,8 @@ export default {
 
 .q-field__marginal
   min-width: 35px !important
+
+.q-select__dialog
+  position: absolute
+  top: 60px
 </style>

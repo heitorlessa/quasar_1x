@@ -64,8 +64,13 @@
     - [x] Sort `fetchFlights` action results by earliest departure
     - [x] Remove filter and sorter mixins
     - [x] Clean up FlightResults methods, mixins, data, and template
-  - [ ] Bring search autocomplete (From, To)
-    - [ ] Merge autocomplete/airport validation to shared
+  - [x] Bring search autocomplete (From, To)
+    - [x] Fix autosuggestion position
+    - [x] Use long airport name as label
+    - [x] Change icon for currently selected from auto-suggested list
+  - [ ] Make autocomplete and fuzzy searching reusable
+    - [ ] Create mixin
+    - [ ] bring: `parseAirports` fn, `airportList`, `suggestionList`, `fuzzySearchFilter`
   - [x] Correct date format model (q-date)
 - [x] Fix flight card component
   - [x] Remove long airport name
