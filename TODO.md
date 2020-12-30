@@ -45,26 +45,37 @@
     - [x] Adjust time selection for 12 hours (info overhead)
     - [x] Add now button (hour)
     - [x] Add a close button
-  - [ ] Create a bare minimum Filter component to reduce clutter in Toolbar
-  - [ ] Create Reset filter functionality
-  - [ ] Apply Filters
-    - [ ] Create minimum/maximum price as getters in catalog
-      - [ ] create mutations for filtering and ordering
-      - [ ] move `filteredFlights` to store
-      - [ ] add reset button to filter/sorted
-      - [ ] use `actions` within Toolbar component to compartmentalize it
-      - [ ] Highlight when Filters are applied
+  - [x] Create a bare minimum Filter component to reduce clutter in Toolbar
+    - [x] Create FlightToolbarFilters component
+    - [x] Create toggle method and link reference
+    - [x] Emit event from FlightToolbarFilters to FlightToolbar parent component
+    - [x] Register FlightToolbarFilters component
+    - [x] Listen to `apply` event from FlightToolbarFilters component
+    - [x] Create ISO 8601 datetime object in UTC from time filters and current date displayed
+  - [x] Create Reset filter functionality
   - [ ] Apply Sorts
     - [ ] Lowest price
     - [ ] Highest price
     - [ ] Earliest Departure time
     - [ ] Latest Departure time
+    - [ ] Create mutation for sorting 
+    - [ ] Move default sorting from FlightResults as part of `SET_FLIGHTS` mutation
   - [ ] Bring search autocomplete (From, To)
-  - [ ] Correct date format model (q-date)
-  - [ ] Move Toolbar Dialog to own component
+    - [ ] Merge autocomplete/airport validation to shared
+  - [x] Correct date format model (q-date)
+- [ ] Fix booking card
+  - [ ] Fix booking dialog header info
+  - [ ] Fix booking dialog width
+  - [ ] Remove unused `hideCard` method in favour of v-close directive
+- [ ] Replace today icon with `today` text
 - [ ] Sync store modules
-- [x] Bring Amplify
-- [ ] Move sorting/filter outside views (Vue warning) -- revisit sorting/filtering location (model? mutation?)
+- [ ] Apply Filters
+  - [ ] Refactor fetchFlights to use additional filters
+  - [ ] Create a separate function to build Filters
+  - [x] Test date range between query
+  - [ ] Filter flights with dynamic dep/arr and price range altogether
+  - [ ] Highlight when Filters are applied
+  - [ ] Create constants file
 - [ ] Convert into PWA
 - [ ] Consider using `Logger`
 
@@ -87,6 +98,56 @@ Breaking changes
 * Upgrade
 * Amplify Authenticator
 
+http://localhost:8080/#/search/results?date=2020-12-30&departure=LGW&arrival=MAD
 
 
- Mask: hh[h and ]mm[ minutes (]A) 
+Invalidate 12AM - 5am
+
+## Query between dates
+
+```graphql
+mutation flight1 {
+  __typename
+}
+
+query fetchFlights {
+  getFlightBySchedule(
+      departureAirportCode: "LGW",
+      arrivalAirportCodeDepartureDate: { 
+          beginsWith: {
+              arrivalAirportCode: "MAD",
+              departureDate: "2020-02-06"
+          }
+      },
+      filter: {
+          departureDate: {
+              between: ["2020-02-06T06:00:00+0000", "2020-02-06T11:00:00+0000"]
+          }
+      }
+  ) 
+
+  {
+    nextToken
+    items {
+      id
+      departureDate
+    }
+  }
+}
+
+```
+
+const flightFilter = {
+    departureDate: {
+    between: ['2020-02-06T08:00', '2020-02-06T10:45']
+    },
+    arrivalDate: {
+    between: ['2020-02-06T12:00', '2020-02-06T14:45']
+    },
+    departureAirportCode: {
+    eq: 'LGW'
+    },
+    arrivalAirportCode: {
+    eq: 'MAD'
+    }
+}
