@@ -1,5 +1,5 @@
 import Flight from '../../shared/models/FlightClass'
-
+import { SortPreference } from '../../shared/enums'
 // [Mock-Example]
 import axios from 'axios'
 // import { listFlightQuery, getFlightQuery } from './graphql.js'
@@ -101,6 +101,7 @@ export async function fetchFlights(
 
     commit('SET_FLIGHTS', flights)
     commit('SET_LOADER', false)
+    commit('SORT_FLIGHTS', SortPreference.EarliestDeparture)
     console.groupEnd()
   } catch (error) {
     console.error(error)
@@ -187,4 +188,19 @@ export async function fetchByFlightId({ commit, rootGetters }, { flightId }) {
     console.groupEnd()
     throw error
   }
+}
+
+/**
+ *
+ * Catalog [Vuex Module Action](https://vuex.vuejs.org/guide/actions.html) - sortFlightsByPreference sorts flights in current state based on SortPreference given.
+ *
+ * Similarly to fetchFlights, it also controls Flight Loader when fetching data from Catalog service.
+ *
+ * **NOTE**: It doesn't mutate the store
+ * @param {object} context - Vuex action context (context.commit, context.getters, context.state, context.dispatch)
+ * @param {SortPreference} preference - Sorting preferences
+ * @see {@link SORT_FLIGHTS} for more info on mutation
+ */
+export function sortFlightsByPreference({ commit }, preference) {
+  commit('SORT_FLIGHTS', preference)
 }

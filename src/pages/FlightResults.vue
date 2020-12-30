@@ -11,15 +11,12 @@
         <div class="loader" v-if="loading">
           <flight-loader></flight-loader>
         </div>
-        <div v-if="filteredFlights.length && !loading">
+        <div v-if="flights.length && !loading">
           <span class="results__headline text-h6" data-test="results-headline"
             >Select your flight</span
           >
         </div>
-        <div
-          v-if="!filteredFlights.length && !loading"
-          class="heading__error row"
-        >
+        <div v-if="!flights.length && !loading" class="heading__error row">
           <span
             class="justify-center full-width results__error"
             data-test="results-error"
@@ -38,14 +35,14 @@
         </div>
       </div>
     </div>
-    <div class="results__flights" v-if="filteredFlights.length && !loading">
+    <div class="results__flights" v-if="flights.length && !loading">
       <router-link
         :to="{
           name: 'selectedFlight',
           params: { flight: flight },
           query: { flightId: flight.id }
         }"
-        v-for="flight in filteredFlights"
+        v-for="flight in flights"
         :key="flight.id"
       >
         <flight-card :details="flight" />
@@ -60,8 +57,6 @@ import FlightCard from '../components/FlightCard'
 import FlightToolbar from '../components/FlightToolbar'
 import FlightLoader from '../components/FlightLoader'
 import { mapState, mapGetters } from 'vuex'
-import { priceFilter, scheduleFilter } from '../shared/mixins/filters'
-import { priceSorter, scheduleSorter } from '../shared/mixins/sorters'
 
 /**
  * Flight Results view displays a collection of Flights from Catalog.
@@ -73,7 +68,6 @@ export default {
     FlightToolbar,
     FlightLoader
   },
-  mixins: [priceFilter, scheduleFilter, priceSorter, scheduleSorter],
   /**
    * @param {string} date - Departure date one wishes to travel by
    * @param {string} departure - Departure airport IATA one wishes to travel from
@@ -83,20 +77,6 @@ export default {
     date: { type: String, required: true },
     departure: { type: String, required: true },
     arrival: { type: String, required: true }
-  },
-  /**
-   * @param {Flight[]} filteredFlights - List of Flights filtered by departure, price or schedule
-   * @param {string} departureTimeFilter - Departure schedule one wishes to filter flights by
-   * @param {string} arrivalTimeFilter - Arrival schedule one wishes to filter flights by
-   * @param {string} maxPriceFilter - Maximum price one wishes to limit flights to
-   */
-  data() {
-    return {
-      filteredFlights: [],
-      departureTimeFilter: '',
-      arrivalTimeFilter: '',
-      maxPriceFilter: 300
-    }
   },
   async mounted() {
     /** authentication guards prevent authenticated users to view Flights
@@ -110,57 +90,19 @@ export default {
         departure: this.departure,
         arrival: this.arrival
       })
-
-      this.filteredFlights = this.sortByDeparture(this.flights)
-    }
-  },
-  methods: {
-    /**
-     * setPrice method updates maxPriceFilter and filter flights via filterByMaxPrice mixin
-     */
-    setPrice() {
-      let flights = this.filterByMaxPrice(this.flights, this.maxPriceFilter)
-      flights = this.sortByPrice(flights)
-      this.filteredFlights = flights
-    },
-    /**
-     * setDeparture method updates departureTimeFilter and filter flights via filterBySchedule mixin
-     */
-    setDeparture() {
-      let flights = this.filterBySchedule(this.flights, {
-        departure: this.departureTimeFilter
-      })
-      flights = this.sortByDeparture(flights)
-      this.filteredFlights = flights
-    },
-    /**
-     * setArrival method updates arrivalTimeFilter and filter flights via filterBySchedule mixin
-     */
-    setArrival() {
-      this.filteredFlights = this.filterBySchedule(this.flights, {
-        arrival: this.arrivalTimeFilter
-      })
     }
   },
   /**
    * @param {Flight} flights - Flights state from Flights module
    * @param {boolean} loading - Loader state used to control Flight Loader when fetching flights
    * @param {boolean} isAuthenticated - Getter from Profile module
-   * @param {number} maximumPrice - Maximum ticket price calculated across all available flights
-   * @param {number} minimumPrice - Minimum ticket price calculated across all available flights
    */
   computed: {
     ...mapState({
       flights: (state) => state.catalog.flights,
       loading: (state) => state.catalog.loading
     }),
-    ...mapGetters('profile', ['isAuthenticated']),
-    maximumPrice: function () {
-      return Math.max(...this.flights.map((filter) => filter.ticketPrice), 500)
-    },
-    minimumPrice: function () {
-      return Math.min(...this.flights.map((filter) => filter.ticketPrice), 1)
-    }
+    ...mapGetters('profile', ['isAuthenticated'])
   }
 }
 </script>

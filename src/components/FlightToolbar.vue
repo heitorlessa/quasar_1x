@@ -115,6 +115,22 @@
 
                   <q-item
                     clickable
+                    @click="sortResults(SortPreference.HighestPrice)"
+                    :active="sortSelection == SortPreference.HighestPrice"
+                    active-class="bg-cyan-2 text-dark"
+                  >
+                    <q-item-section>
+                      <q-item-label class="text-subtitle1"
+                        >Highest price</q-item-label
+                      >
+                      <q-item-label caption
+                        >Highest to lowest ticket price</q-item-label
+                      >
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item
+                    clickable
                     @click="sortResults(SortPreference.EarliestDeparture)"
                     :active="sortSelection == SortPreference.EarliestDeparture"
                     active-class="bg-cyan-2 text-dark"
@@ -129,21 +145,6 @@
                     </q-item-section>
                   </q-item>
 
-                  <q-item
-                    clickable
-                    @click="sortResults(SortPreference.HighestPrice)"
-                    :active="sortSelection == SortPreference.HighestPrice"
-                    active-class="bg-cyan-2 text-dark"
-                  >
-                    <q-item-section>
-                      <q-item-label class="text-subtitle1"
-                        >Highest price</q-item-label
-                      >
-                      <q-item-label caption
-                        >Highest to lowest ticket price</q-item-label
-                      >
-                    </q-item-section>
-                  </q-item>
                   <q-item
                     clickable
                     @click="sortResults(SortPreference.LatestDeparture)"
@@ -174,13 +175,7 @@
 import { date } from 'quasar'
 import { mapGetters } from 'vuex'
 import FlightToolbarFilters from './FlightToolbarFilters.vue'
-
-const SortPreference = Object.freeze({
-  LowestPrice: 'lowestPrice',
-  HighestPrice: 'highestprice',
-  EarliestDeparture: 'earliestdeparture',
-  LatestDeparture: 'latestdeparture'
-})
+import { SortPreference } from '../shared/enums'
 
 export default {
   /**
@@ -278,26 +273,7 @@ export default {
      * sortResults('lowestPrice')
      */
     sortResults(preference) {
-      switch (preference) {
-        case preference.LowestPrice:
-          console.info('Sorting by lowest price')
-          break
-
-        case preference.HighestPrice:
-          console.info('Sorting by highest price')
-          break
-
-        case preference.EarliestDeparture:
-          console.info('Sorting by earliest departure')
-          break
-
-        case preference.LatestDeparture:
-          console.info('Sorting by latest departure')
-          break
-
-        default:
-          break
-      }
+      this.$store.dispatch('catalog/sortFlightsByPreference', preference)
       this.sortSelection = preference
     }
   }

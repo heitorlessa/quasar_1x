@@ -53,13 +53,17 @@
     - [x] Listen to `apply` event from FlightToolbarFilters component
     - [x] Create ISO 8601 datetime object in UTC from time filters and current date displayed
   - [x] Create Reset filter functionality
-  - [ ] Apply Sorts
-    - [ ] Lowest price
-    - [ ] Highest price
-    - [ ] Earliest Departure time
-    - [ ] Latest Departure time
-    - [ ] Create mutation for sorting 
-    - [ ] Move default sorting from FlightResults as part of `SET_FLIGHTS` mutation
+  - [x] Apply Sorts
+    - [x] Lowest price
+    - [x] Highest price
+    - [x] Earliest Departure time
+    - [x] Latest Departure time
+    - [x] Create action for sorting 
+    - [x] Create mutation for sorting 
+    - [x] Replace shared sorter mixing with plain functions
+    - [x] Sort `fetchFlights` action results by earliest departure
+    - [x] Remove filter and sorter mixins
+    - [x] Clean up FlightResults methods, mixins, data, and template
   - [ ] Bring search autocomplete (From, To)
     - [ ] Merge autocomplete/airport validation to shared
   - [x] Correct date format model (q-date)
