@@ -140,10 +140,6 @@ export default {
       this.filteredFlights = this.filterBySchedule(this.flights, {
         arrival: this.arrivalTimeFilter
       })
-    },
-    filterFlights(filters) {
-      console.info('Received filters')
-      console.table(filters)
     }
   },
   /**

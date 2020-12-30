@@ -248,19 +248,23 @@ export default {
      *
      * @see FlightToolbarFilters - Event emitter
      */
-    applyFilters({ pricing, departure, arrival }) {
-      let minDeparture = new Date(`${this.date}T${departure.min}`)
-      let maxDeparture = new Date(`${this.date}T${departure.max}`)
-      let minArrival = new Date(`${this.date}T${arrival.min}`)
-      let maxArrival = new Date(`${this.date}T${arrival.max}`)
+    async applyFilters({ pricing, departure, arrival }) {
+      let format = 'YYYY-MM-DD[T]HH:mm'
 
-      console.log('Departure min: ', minDeparture.toISOString())
-      console.log('Departure max: ', maxDeparture.toISOString())
-      console.log('Arrival min: ', minDeparture.toISOString())
-      console.log('Arrival max: ', maxDeparture.toISOString())
+      let filters = {
+        departureRange: {
+          min: date.formatDate(`${this.date}T${departure.min}`, format),
+          max: date.formatDate(`${this.date}T${departure.max}`, format)
+        },
+        arrivalRange: {
+          min: date.formatDate(`${this.date}T${arrival.min}`, format),
+          max: date.formatDate(`${this.date}T${arrival.max}`, format)
+        },
+        pricingRange: pricing
+      }
 
-      console.log(`Max price ${pricing.max}`)
-      console.log(`Min price ${pricing.min}`)
+      console.info('Applying filters')
+      console.table(filters)
     },
     toggleFilters() {
       this.$refs['filters'].show()
