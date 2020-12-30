@@ -14,7 +14,9 @@
             </div>
           </div>
 
-          <div class="row text-primary flight__direction">
+          <div
+            class="row text-primary flight__direction items-baseline q-pt-sm"
+          >
             <div class="col flight__left-details">
               <div
                 class="text-h5 flight__departure text-uppercase"
@@ -22,15 +24,6 @@
               >
                 {{ details.departureAirportCode }}
               </div>
-              <div
-                class="text-caption capitalize text-secondary text-bold"
-                data-test="flight-departure-name"
-              >
-                {{ details.departureAirportName }}
-              </div>
-            </div>
-            <div class="col-2 flight__center-details text-center">
-              <q-icon class="flight__icon" name="local_airport" />
             </div>
             <div class="col flight__right-details text-right">
               <div
@@ -38,12 +31,6 @@
                 data-test="flight-arrival-code"
               >
                 {{ details.arrivalAirportCode }}
-              </div>
-              <div
-                class="text-caption capitalize text-secondary text-bold"
-                data-test="flight-arrival-name"
-              >
-                {{ details.arrivalAirportName }}
               </div>
             </div>
           </div>
@@ -94,16 +81,16 @@
           </div>
 
           <div
-            class="row flight__ticket"
+            class="row flight__ticket items-baseline"
             v-if="!booking && details.ticketPrice && details.flightNumber"
           >
             <q-separator class="flight__separator" />
             <div class="col flight__left-details" v-if="details.ticketPrice">
               <div
-                class="text-uppercase text-secondary flight__price"
+                class="text-uppercase text-grey-9 flight__price"
                 data-test="flight-price"
               >
-                {{ details.ticketPrice }} eur
+                <span>&euro; {{ details.ticketPrice }}</span>
               </div>
             </div>
             <div class="col flight__center-details"></div>
@@ -178,11 +165,11 @@ export default {
 @import '../css/app'
 
 .flight
-  margin: 1.3rem 1rem
+  margin: 1.3rem 1.2rem
 
 .flight__card
   min-width: 18rem
-  max-width: 29rem
+  max-width: 25rem
   margin: auto
   width: 100%
   border-radius: 0.93rem

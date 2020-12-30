@@ -67,8 +67,15 @@
   - [ ] Bring search autocomplete (From, To)
     - [ ] Merge autocomplete/airport validation to shared
   - [x] Correct date format model (q-date)
+- [x] Fix flight card component
+  - [x] Remove long airport name
+  - [x] Baseline items
+  - [x] Use Euro sign for price
+  - [x] Fix ticket price contrast
+  - [x] Fix max width
+  - [x] Fix min margin
 - [ ] Fix booking card
-  - [ ] Fix booking dialog header info
+  - [x] Fix booking dialog header info
   - [ ] Fix booking dialog width
   - [ ] Remove unused `hideCard` method in favour of v-close directive
 - [ ] Replace today icon with `today` text
