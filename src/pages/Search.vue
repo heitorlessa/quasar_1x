@@ -17,13 +17,13 @@
         class="home-icons search__options--input search__departure text-bold"
         input-class="search__options--input"
         :min-characters="3"
-        :options="suggestionList"
+        :options="$data.$_airportSearch_suggestionList"
         option-label="name"
         option-value="code"
         map-options
         emit-value
         input-debounce="200"
-        @filter="fuzzySearchFilter"
+        @filter="$airportSearch_fuzzySearch"
         display-value-sanitize
         use-input
         hide-dropdown-icon
@@ -59,13 +59,13 @@
         class="home-icons search__options--input search__arrival text-bold"
         input-class="search__options--input"
         :min-characters="3"
-        :options="suggestionList"
+        :options="$data.$_airportSearch_suggestionList"
         option-label="name"
         option-value="code"
         map-options
         emit-value
         input-debounce="200"
-        @filter="fuzzySearchFilter"
+        @filter="$airportSearch_fuzzySearch"
         display-value-sanitize
         use-input
         item-aligned
@@ -151,23 +151,8 @@ import Fuse from 'fuse.js'
 import { date } from 'quasar'
 import { validationMixin } from 'vuelidate'
 import { required, minLength } from 'vuelidate/lib/validators'
-
-/**
- * parse list of airports provided from Catalog module
- *
- * @return {object} - list of airports following auto-suggestion Quasar component contract
- */
-const parseAirports = () => {
-  return airports.map((country) => {
-    return {
-      city: country.city,
-      name: country.name,
-      code: country.code
-    }
-  })
-}
-
-const airportList = parseAirports()
+import { airportList } from '../shared/mixins/airportSearch'
+import { airportSearchMixin } from '../shared/mixins'
 
 /**
  * Validate given input against list of valid IATA airports
@@ -184,24 +169,13 @@ const isAirport = (value) => {
   return airportList.some((airport) => airport.code === value)
 }
 
-// Fuzzy search config for Fuse
-const fuzeOpts = {
-  shouldSort: true,
-  threshold: 0.3,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 10,
-  minMatchCharLength: 3,
-  keys: ['city', 'code', 'name']
-}
-
 export default {
   /**
    *
    * Search view displays options for searching a flight given a departure, arrival and a date.
    */
   name: 'Search',
-  mixins: [validationMixin],
+  mixins: [validationMixin, airportSearchMixin],
   validations: {
     departureCity: {
       required,
@@ -220,15 +194,13 @@ export default {
   data() {
     return {
       /**
-       * @param {object} departureCity - Departure city chosen by the customer
-       * @param {object} arrivalCity - Arrival city chosen by the customer
-       * @param {object} departureDate - Departure date chosen by the customer
-       * @param {object} suggestionList - Parsed list of airports offered as auto-suggestion
+       * @param {string} departureCity - Departure city chosen by the customer
+       * @param {string} arrivalCity - Arrival city chosen by the customer
+       * @param {string} departureDate - Departure date chosen by the customer
        */
       departureCity: '',
       arrivalCity: '',
-      departureDate: '',
-      suggestionList: airportList
+      departureDate: ''
     }
   },
   methods: {
@@ -244,40 +216,6 @@ export default {
           arrival: this.arrivalCity
         }
       })
-    },
-    /**
-     * fuzzySearchFilter method uses Fuse library to easily find airports whether that is city, IATA, initials, etc.
-     */
-    fuzzySearchFilter(value, update, abort) {
-      console.log('entering filter...')
-      // Min 3 chars for autocomplete
-      if (value.length < 3) {
-        abort()
-        return
-      }
-
-      update(
-        () => {
-          // reset the list if search was cleared
-          if (value === '') {
-            this.suggestionList = airportList
-          }
-
-          let fuse = new Fuse(airportList, fuzeOpts)
-          let result = fuse.search(value.toLowerCase())
-          this.suggestionList = result.map((i) => i.item)
-        },
-        (ref) => {
-          if (
-            value !== '' &&
-            ref.options.length > 0 &&
-            ref.optionIndex === -1
-          ) {
-            ref.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
-            ref.toggleOption(ref.options[ref.optionIndex], true) // toggle the focused option
-          }
-        }
-      )
     }
   }
 }

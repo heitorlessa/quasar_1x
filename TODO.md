@@ -69,9 +69,10 @@
     - [x] Use long airport name as label
     - [x] Change icon for currently selected from auto-suggested list
     - [x] Pair Search and Toolbar autosuggestion style for consistency
-  - [ ] Make autocomplete and fuzzy searching reusable
-    - [ ] Create mixin
-    - [ ] bring: `parseAirports` fn, `airportList`, `suggestionList`, `fuzzySearchFilter`
+  - [x] Make autocomplete and fuzzy searching reusable
+    - [x] Create mixin
+    - [x] bring: `parseAirports` fn, `airportList`, `suggestionList`, `fuzzySearchFilter`
+    - [x] Update `FlightToolbar` and `Search`
   - [x] Correct date format model (q-date)
 - [x] Fix flight card component
   - [x] Remove long airport name
