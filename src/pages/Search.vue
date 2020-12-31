@@ -36,6 +36,19 @@
         <template v-slot:before>
           <q-icon name="flight_takeoff" color="primary" class="field-icon" />
         </template>
+        <template v-slot:option="scope">
+          <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+            <q-item-section avatar>
+              <q-icon name="local_airport" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label v-html="scope.opt.label" />
+              <q-item-label class="text-subtitle1"
+                >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
+              >
+            </q-item-section>
+          </q-item>
+        </template>
       </q-select>
       <q-select
         data-test="search-arrival"
@@ -65,6 +78,19 @@
       >
         <template v-slot:before>
           <q-icon name="flight_land" color="primary" class="field-icon" />
+        </template>
+        <template v-slot:option="scope">
+          <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+            <q-item-section avatar>
+              <q-icon name="local_airport" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label v-html="scope.opt.label" />
+              <q-item-label class="text-subtitle1"
+                >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
+              >
+            </q-item-section>
+          </q-item>
         </template>
       </q-select>
 
