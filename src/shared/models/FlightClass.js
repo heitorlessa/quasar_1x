@@ -124,18 +124,4 @@ export default class Flight {
 
     return arrivalTime
   }
-
-  /**
-   * Get departure day, month and year
-   * @type {string}
-   * @readonly
-   * @return {string} Formatted departure day (e.g 16 JAN 2019)
-   */
-  get departureDayMonthYear() {
-    let departureDayMonthYear = date.formatDate(
-      this.departureDate,
-      'DD MMM YYYY'
-    )
-    return departureDayMonthYear
-  }
 }

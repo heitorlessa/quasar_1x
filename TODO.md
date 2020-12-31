@@ -68,6 +68,7 @@
     - [x] Fix autosuggestion position
     - [x] Use long airport name as label
     - [x] Change icon for currently selected from auto-suggested list
+    - [x] Pair Search and Toolbar autosuggestion style for consistency
   - [ ] Make autocomplete and fuzzy searching reusable
     - [ ] Create mixin
     - [ ] bring: `parseAirports` fn, `airportList`, `suggestionList`, `fuzzySearchFilter`
@@ -79,6 +80,10 @@
   - [x] Fix ticket price contrast
   - [x] Fix max width
   - [x] Fix min margin
+  - [x] Remove rounded corners
+  - [x] Correct contrast 
+  - [x] Invert drop shadow
+  - [x] Ensure booking style has flight timings
 - [ ] Fix booking card
   - [x] Fix booking dialog header info
   - [ ] Fix booking dialog width

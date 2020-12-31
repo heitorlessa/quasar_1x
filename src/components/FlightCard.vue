@@ -1,22 +1,20 @@
 <template>
   <div class="row flight">
     <q-card
-      class="flight__card"
+      class="flight__card shadow-up-1"
       :id="details.flightNumber"
       data-test="flight-card"
     >
       <div class="col-10">
-        <q-list highlight>
+        <q-list>
           <div class="row text-uppercase text-bold flight__headline">
-            <div class="col">Departure</div>
+            <div class="col text-left">Departure</div>
             <div class="col text-right" data-test="flight-long-date">
-              {{ details.departureDayMonthYear }}
+              Arrival
             </div>
           </div>
 
-          <div
-            class="row text-primary flight__direction items-baseline q-pt-sm"
-          >
+          <div class="row text-primary flight__direction items-baseline">
             <div class="col flight__left-details">
               <div
                 class="text-h5 flight__departure text-uppercase"
@@ -38,7 +36,6 @@
           <div
             class="row text-primary flight__timing"
             v-if="
-              !booking &&
               details.departureTime &&
               details.flightDuration &&
               details.arrivalTime
@@ -99,14 +96,12 @@
               v-if="details.flightNumber"
             >
               <div class="row inline">
-                <div class="text-caption text-primary capitalize text-bold">
-                  Flight no
-                </div>
+                <div class="text-caption capitalize text-bold">Flight</div>
                 <div
                   class="q-ml-xs text-caption text-bold"
                   data-test="flight-number"
                 >
-                  #{{ details.flightNumber }}
+                  {{ details.flightNumber }}
                 </div>
               </div>
             </div>
@@ -165,14 +160,13 @@ export default {
 @import '../css/app'
 
 .flight
-  margin: 1.3rem 1.2rem
+  margin: 1.3rem 1rem
 
 .flight__card
   min-width: 18rem
   max-width: 25rem
   margin: auto
   width: 100%
-  border-radius: 0.93rem
 
 .flight__icon
   font-size: $item-icon-size
@@ -181,7 +175,7 @@ export default {
   margin-left: 2.3rem
 
 .flight__separator
-  background-color: $secondary
+  background-color: $grey-3
   margin: 0.4rem
   width: 100%
 
@@ -202,4 +196,5 @@ export default {
 
 .flight__headline
   color: #757575
+  font-size: 0.8rem
 </style>
