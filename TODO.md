@@ -17,7 +17,7 @@
 - [x] Revisit all Errors
 - [x] Booking deduplication
 - [x] Replace `src/views/` -> `src/pages/` doc strings
-- [ ] Create new toolbar
+- [x] Create new toolbar
   - [x] Create first sketch
   - [x] Apply new toolbar in Flight Results
   - [x] Apply new toolbar in Flight Selection
@@ -36,7 +36,7 @@
     - [x] Create range component time for Arrival
     - [x] Match ranges with earliest/latest departure/arrival available
   - [x] Bring sticky/top bar to Dialog to reset filters/sorting
-  - [x] Give breathing Refine toolbar section
+  - [x] Give breathing room for Refine toolbar section
   - [x] Fix time range filter
     - [x] Use price dropdown/select
     - [x] Use time only for departure and arrival window
@@ -74,6 +74,7 @@
     - [x] bring: `parseAirports` fn, `airportList`, `suggestionList`, `fuzzySearchFilter`
     - [x] Update `FlightToolbar` and `Search`
   - [x] Correct date format model (q-date)
+  - [x] Create visible cue that toolbar fields can be edited
 - [x] Fix flight card component
   - [x] Remove long airport name
   - [x] Baseline items
@@ -85,6 +86,7 @@
   - [x] Correct contrast 
   - [x] Invert drop shadow
   - [x] Ensure booking style has flight timings
+  - [x] Feature card when hovered
 - [ ] Fix booking card
   - [x] Fix booking dialog header info
   - [ ] Fix booking dialog width
@@ -98,8 +100,8 @@
   - [ ] Filter flights with dynamic dep/arr and price range altogether
   - [ ] Highlight when Filters are applied
   - [ ] Create constants file
-- [ ] Convert into PWA
 - [ ] Consider using `Logger`
+- [ ] Convert into PWA
 
 
 **Outside the scope**

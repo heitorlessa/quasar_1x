@@ -29,6 +29,7 @@
           @filter="$airportSearch_fuzzySearch"
           display-value-sanitize
         >
+          <span class="search__options--editable"></span>
           <template v-slot:option="scope">
             <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
               <q-item-section avatar>
@@ -70,6 +71,7 @@
           @filter="$airportSearch_fuzzySearch"
           display-value-sanitize
         >
+          <span class="search__options--editable"></span>
           <template v-slot:option="scope">
             <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
               <q-item-section avatar>
@@ -105,7 +107,9 @@
                 />
               </div>
             </q-popup-proxy>
-            <span class="text-primary text-bold">{{ shortDate }}</span>
+            <span class="text-primary text-bold search__options--date">{{
+              shortDate
+            }}</span>
           </template>
         </q-field>
       </div>
@@ -338,6 +342,17 @@ export default {
     font-weight: bold
     cursor: pointer
 
+  &--editable::before
+    content: ""
+    position: absolute
+    left: 0
+    top: 0px
+    width: 70%
+    border-bottom: $editable-field-border
+    margin-top: 2.3em
+
+  &--date
+    border-bottom: $editable-field-border
 
 .q-field__label
   top: 24px
@@ -350,10 +365,12 @@ export default {
 
 .filter__option
   &--value
-    border-bottom: 1px dotted grey
+    border-bottom: $editable-field-border
   &--before
     color: rgba(0, 0, 0, 0.87) !important
 
+.blah
+  border-bottom: $editable-field-border
 
 .pricing__range
   &--input
