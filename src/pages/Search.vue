@@ -43,7 +43,7 @@
             </q-item-section>
             <q-item-section>
               <q-item-label v-html="scope.opt.label" />
-              <q-item-label class="text-subtitle1"
+              <q-item-label class="text-subtitle1 search__options--suggestion"
                 >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
               >
             </q-item-section>
@@ -86,7 +86,7 @@
             </q-item-section>
             <q-item-section>
               <q-item-label v-html="scope.opt.label" />
-              <q-item-label class="text-subtitle1"
+              <q-item-label class="text-subtitle1 search__options--suggestion"
                 >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
               >
             </q-item-section>

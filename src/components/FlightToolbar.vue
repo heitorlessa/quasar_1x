@@ -36,7 +36,7 @@
               </q-item-section>
               <q-item-section>
                 <q-item-label v-html="scope.opt.label" />
-                <q-item-label class="text-subtitle1"
+                <q-item-label class="text-subtitle1 search__options--suggestion"
                   >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
                 >
               </q-item-section>
@@ -77,7 +77,7 @@
               </q-item-section>
               <q-item-section>
                 <q-item-label v-html="scope.opt.label" />
-                <q-item-label class="text-subtitle1"
+                <q-item-label class="text-subtitle1 search__options--suggestion"
                   >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
                 >
               </q-item-section>
@@ -331,10 +331,12 @@ export default {
 .q-field__native
   padding-top: 0 !important
 
-.search__options--input
-  color: $primary
-  font-weight: bold
-  cursor: pointer
+.search__options
+  &--input
+    color: $primary
+    font-weight: bold
+    cursor: pointer
+
 
 .q-field__label
   top: 24px
