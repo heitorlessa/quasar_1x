@@ -108,15 +108,10 @@
           @click="payment"
           class="cta__button text-weight-medium"
           color="secondary"
-          label="Agree and pay now"
+          label="Book flight"
           :disable="$v.form.$invalid || form.isCardInvalid"
           data-test="payment-button"
         >
-          <q-icon
-            class="cta__button--direction"
-            name="keyboard_arrow_right"
-            size="2.6rem"
-          />
         </q-btn>
       </div>
     </div>
@@ -430,4 +425,7 @@ label > span
 
 .loader
   width: 150%
+
+.cta__button
+  width: 90%
 </style>

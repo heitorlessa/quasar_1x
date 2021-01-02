@@ -87,6 +87,8 @@
   - [x] Invert drop shadow
   - [x] Ensure booking style has flight timings
   - [x] Feature card when hovered
+- [x] Fix Flight selection wording (e.g. Agree and Pay Now -> Book Flight)
+  - [x] Fix Pre-authorization wording when processing payment
 - [ ] Fix booking card
   - [x] Fix booking dialog header info
   - [ ] Fix booking dialog width

@@ -30,7 +30,7 @@ export async function processPayment({
 }) {
   console.group('store/bookings/actions/processPayment')
   Loading.show({
-    message: 'Charging a pre-authorization...'
+    message: 'Processing payment...'
   })
 
   if (!paymentToken) throw 'Invalid payment token'
