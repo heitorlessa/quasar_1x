@@ -4,17 +4,43 @@
       <div
         class="col-12 booking__modal--passenger booking__modal--highlighted text-center q-pa-sm bg-grey-3"
       >
-        <div class="text-h6 text-primary" data-test="booking-customer">
-          {{ name }}
-        </div>
-        <div class="booking__modal--reference text-subtitle2">
-          <span>Reference: </span>
-          <span
-            class="text-primary text-bold text-uppercase"
-            data-test="booking-reference"
-            >{{ reference }}</span
+        <q-list separator>
+          <q-item
+            dense
+            class="booking__modal--header no-padding items-baseline"
           >
-        </div>
+            <q-item-section>
+              <q-item-label
+                overline
+                class="text-uppercase text-primary text-bold"
+                >Flight</q-item-label
+              >
+              <q-item-label class="text-subtitle1 text-bold">{{
+                flightNumber
+              }}</q-item-label>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label
+                overline
+                class="text-uppercase text-primary text-bold"
+                >Reference</q-item-label
+              >
+              <q-item-label class="text-uppercase text-subtitle1 text-bold">{{
+                reference
+              }}</q-item-label>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label
+                overline
+                class="text-uppercase text-primary text-bold"
+                >Boarding</q-item-label
+              >
+              <q-item-label class="text-subtitle1 text-bold">{{
+                boardingTime
+              }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </div>
 
       <div class="row booking__modal--timeline full-width">
@@ -25,14 +51,6 @@
             side="right"
             :title="departureAirportName"
           >
-            <div class="booking__timeline--info text-subtitle2">
-              <p class="q-ma-none text-subtitle2 text-primary text-bold">
-                <q-icon name="schedule" size="xs" left />
-                <span class="text-dark" data-test="booking-departure-time">{{
-                  departureTime
-                }}</span>
-              </p>
-            </div>
           </q-timeline-entry>
 
           <q-timeline-entry
@@ -40,14 +58,6 @@
             icon="flight_land"
             :title="arrivalAirportName"
           >
-            <div class="booking__timeline--info text-subtitle2">
-              <p class="q-ma-none text-subtitle2 text-primary text-bold">
-                <q-icon name="schedule" size="1.1rem" left />
-                <span class="text-dark" data-test="booking-arrival-time">{{
-                  arrivalTime
-                }}</span>
-              </p>
-            </div>
           </q-timeline-entry>
         </q-timeline>
       </div>
@@ -82,7 +92,6 @@
 @import '../css/app'
 
 .booking__modal
-  border-radius: 0.93rem !important
 
   &--title
     margin: 0 auto
@@ -90,6 +99,9 @@
   &--timeline
     background-color: white
     padding: 0 0.1rem
+
+  &--header
+
 
 
 .q-timeline__title
@@ -123,6 +135,7 @@ export default {
      */
     reference: String,
     name: String,
+    flightNumber: String,
     departureDate: [String, Date],
     departureAirportName: String,
     departureIata: {
@@ -150,15 +163,6 @@ export default {
       // @ts-ignore
       this.$refs['modal'].show()
     },
-    /**
-     * Hides modal
-     *
-     * @see BookingFlight
-     */
-    hideCard: function () {
-      // @ts-ignore
-      this.$refs['modal'].hide()
-    },
     checkIn() {
       this.$q.notify('Not implemented')
     },
@@ -166,34 +170,22 @@ export default {
       this.$q.notify('Not implemented')
     }
   },
-  /**
-   *
-   * At mount lifecycle hook, it formats departure/arrival dates to be displayed
-   *
-   */
-  mounted() {
-    this.departureDisplayDate = date.formatDate(
-      // @ts-ignore
-      this.departureDate,
-      'ddd, DD MMM YYYY'
-    )
-    // @ts-ignore
-    this.departureTime = date.formatDate(this.departureDate, 'HH:mm')
-
-    this.arrivalDisplayDate = date.formatDate(
-      // @ts-ignore
-      this.departureDate,
-      'ddd, DD MMM YYYY'
-    )
-    // @ts-ignore
-    this.arrivalTime = date.formatDate(this.arrivalDate, 'HH:mm')
-  },
-  data() {
-    return {
-      departureTime: null,
-      departureDisplayDate: null,
-      arrivalTime: null,
-      arrivalDisplayDate: null
+  computed: {
+    boardingTime() {
+      let boarding = date.subtractFromDate(this.departureDate, { minutes: 45 })
+      return date.formatDate(boarding, 'HH:mm')
+    },
+    arrivalTime() {
+      return date.formatDate(this.arrivalDate, 'HH:mm')
+    },
+    departureTime() {
+      return date.formatDate(this.departureDate, 'HH:mm')
+    },
+    departureDisplayDate() {
+      return date.formatDate(this.departureDate, 'ddd, DD MMM YYYY')
+    },
+    arrivalDisplayDate() {
+      return date.formatDate(this.arrivalDate, 'ddd, DD MMM YYYY')
     }
   }
 }

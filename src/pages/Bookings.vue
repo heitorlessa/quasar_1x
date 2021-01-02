@@ -18,12 +18,6 @@
             side="left"
             color="primary"
           >
-            <!-- <h5 slot="subtitle" class="q-timeline-subtitle">
-              <span data-test="booking-city-date">
-                {{ booking.outboundFlight.departureCity }} &mdash;
-                {{ booking.bookingDate }}
-              </span>
-            </h5> -->
             <booking-flight
               :bookingID="booking.bookingReference"
               :flight="booking.outboundFlight"

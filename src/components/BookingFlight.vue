@@ -7,6 +7,7 @@
       ref="card"
       :reference="bookingID"
       :name="fullName"
+      :flightNumber="flight.flightNumber"
       :departureDate="flight.departureDate"
       :departureAirportName="flight.departureAirportName"
       :departureIata="flight.departureAirportCode"

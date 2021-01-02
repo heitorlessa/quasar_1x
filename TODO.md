@@ -89,11 +89,14 @@
   - [x] Feature card when hovered
 - [x] Fix Flight selection wording (e.g. Agree and Pay Now -> Book Flight)
   - [x] Fix Pre-authorization wording when processing payment
-- [ ] Fix booking card
+- [x] Fix booking card
   - [x] Fix booking dialog header info
-  - [ ] Fix booking dialog width
-  - [ ] Remove unused `hideCard` method in favour of v-close directive
-- [ ] Replace today icon with `today` text
+  - [x] Fix booking dialog width
+  - [x] Create header for quick info lookup
+  - [x] Bring flight no data (prop and header)
+  - [x] Convert mounted hook into computed properties
+  - [x] Remove unused `hideCard` method in favour of v-close directive
+- [ ] Consider using `Logger`
 - [ ] Sync store modules
 - [ ] Apply Filters
   - [ ] Refactor fetchFlights to use additional filters
@@ -102,7 +105,6 @@
   - [ ] Filter flights with dynamic dep/arr and price range altogether
   - [ ] Highlight when Filters are applied
   - [ ] Create constants file
-- [ ] Consider using `Logger`
 - [ ] Convert into PWA
 
 
