@@ -20,7 +20,7 @@
           input-class="search__options--input"
           :disable="this.$router.currentRoute.name != 'searchResults'"
           :min-characters="3"
-          :options="$data.$_airportSearch_suggestionList"
+          :options="$data.airportSearch_suggestionList"
           option-label="code"
           option-value="code"
           options-dense
@@ -61,7 +61,7 @@
           input-class="search__options--input"
           :disable="this.$router.currentRoute.name != 'searchResults'"
           :min-characters="3"
-          :options="$data.$_airportSearch_suggestionList"
+          :options="$data.airportSearch_suggestionList"
           option-label="code"
           option-value="code"
           map-options

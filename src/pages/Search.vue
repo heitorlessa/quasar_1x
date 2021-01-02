@@ -17,7 +17,7 @@
         class="home-icons search__options--input search__departure text-bold"
         input-class="search__options--input"
         :min-characters="3"
-        :options="$data.$_airportSearch_suggestionList"
+        :options="$data.airportSearch_suggestionList"
         option-label="name"
         option-value="code"
         map-options
@@ -59,7 +59,7 @@
         class="home-icons search__options--input search__arrival text-bold"
         input-class="search__options--input"
         :min-characters="3"
-        :options="$data.$_airportSearch_suggestionList"
+        :options="$data.airportSearch_suggestionList"
         option-label="name"
         option-value="code"
         map-options

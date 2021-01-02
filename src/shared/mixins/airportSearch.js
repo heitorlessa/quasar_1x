@@ -41,7 +41,7 @@ export const airportSearchMixin = {
   // ...
   data() {
     return {
-      $_airportSearch_suggestionList: airportList
+      airportSearch_suggestionList: airportList
     }
   },
   methods: {
@@ -70,11 +70,11 @@ export const airportSearchMixin = {
         () => {
           // reset the list if search was cleared
           if (value === '') {
-            this.suggestionList = airportList
+            this.airportSearch_suggestionList = airportList
           }
 
           let result = fuse.search(value.toLowerCase())
-          this.suggestionList = result.map((i) => i.item)
+          this.airportSearch_suggestionList = result.map((i) => i.item)
         },
         (ref) => {
           if (
