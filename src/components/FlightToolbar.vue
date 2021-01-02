@@ -113,6 +113,7 @@
         <q-field
           borderless
           label="Refine"
+          label-color="grey-6.5"
           stack-label
           hide-bottom-space
           :disable="this.$router.currentRoute.name != 'searchResults'"
