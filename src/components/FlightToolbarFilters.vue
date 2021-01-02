@@ -46,7 +46,7 @@
           <div class="col-6">
             <q-select
               v-model="priceFilter.min"
-              class="pricing_minimum cursor-pointer"
+              class="pricing_minimum"
               color="primary"
               :options="pricingOptions"
               borderless
@@ -72,7 +72,7 @@
           <div class="col-6 pricing__max">
             <q-select
               v-model="priceFilter.max"
-              class="pricing_maximum cursor-pointer"
+              class="pricing_maximum"
               color="primary"
               :options="pricingOptions"
               borderless
@@ -107,11 +107,7 @@
           class="col-12 schedule__range--content shadow-up-3 bg-white row text-center"
         >
           <div class="col-6">
-            <q-field
-              class="departure__earliest cursor-pointer"
-              borderless
-              stack-label
-            >
+            <q-field class="departure__earliest" borderless stack-label>
               <template v-slot:control>
                 <q-popup-proxy>
                   <div>
@@ -127,7 +123,7 @@
                 <span class="full-width text-center text-subtitle2"
                   >earliest:
                   <span
-                    class="text-bold filter__option--value departure__earliest--value"
+                    class="text-bold filter__option--value departure__earliest--value cursor-pointer"
                     >{{ departureFilter.min }}
                   </span>
                 </span>
@@ -135,11 +131,7 @@
             </q-field>
           </div>
           <div class="col-6 departure__max">
-            <q-field
-              class="departure__latest cursor-pointer"
-              borderless
-              stack-label
-            >
+            <q-field class="departure__latest" borderless stack-label>
               <template v-slot:control>
                 <q-popup-proxy>
                   <div>
@@ -155,7 +147,7 @@
                 <span class="full-width text-center text-subtitle2"
                   >latest:
                   <span
-                    class="text-bold filter__option--value departure__latest--value"
+                    class="text-bold filter__option--value departure__latest--value cursor-pointer"
                     >{{ departureFilter.max }}
                   </span>
                 </span>
@@ -173,11 +165,7 @@
           class="col-12 schedule__range--content shadow-up-3 bg-white row text-center"
         >
           <div class="col-6">
-            <q-field
-              class="arrival__earliest cursor-pointer"
-              borderless
-              stack-label
-            >
+            <q-field class="arrival__earliest" borderless stack-label>
               <template v-slot:control>
                 <q-popup-proxy>
                   <div>
@@ -193,7 +181,7 @@
                 <span class="full-width text-center text-subtitle2"
                   >earliest:
                   <span
-                    class="text-bold filter__option--value arrival__earliest--value"
+                    class="text-bold filter__option--value arrival__earliest--value cursor-pointer"
                     >{{ arrivalFilter.min }}
                   </span>
                 </span>
@@ -201,11 +189,7 @@
             </q-field>
           </div>
           <div class="col-6 arrival__max">
-            <q-field
-              class="arrival__latest cursor-pointer"
-              borderless
-              stack-label
-            >
+            <q-field class="arrival__latest" borderless stack-label>
               <template v-slot:control>
                 <q-popup-proxy>
                   <div>
@@ -221,7 +205,7 @@
                 <span class="full-width text-center text-subtitle2"
                   >latest:
                   <span
-                    class="text-bold filter__option--value arrival__latest--value"
+                    class="text-bold filter__option--value arrival__latest--value cursor-pointer"
                     >{{ arrivalFilter.max }}
                   </span>
                 </span>
