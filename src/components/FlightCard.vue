@@ -167,6 +167,19 @@ export default {
   max-width: 25rem
   margin: auto
   width: 100%
+  &::after
+    content: ''
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    opacity: 0
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3)
+    transition: opacity 1s ease
+  &:hover::after
+    opacity: 1
+    border-bottom: 1.5px solid $secondary
 
 .flight__icon
   font-size: $item-icon-size
