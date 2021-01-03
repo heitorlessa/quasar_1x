@@ -7,118 +7,146 @@
         </div>
       </div>
     </div>
-    <div class="search__options q-pa-sm">
-      <q-select
-        data-test="search-departure"
-        v-model="departureCity"
-        stack-label
-        label="Departure airport"
-        hint="Minimum 3 characters for autocomplete"
-        class="home-icons search__options--input search__departure text-bold"
-        input-class="search__options--input"
-        :min-characters="3"
-        :options="$data.airportSearch_suggestionList"
-        option-label="name"
-        option-value="code"
-        map-options
-        emit-value
-        input-debounce="200"
-        @filter="$airportSearch_fuzzySearch"
-        display-value-sanitize
-        use-input
-        hide-dropdown-icon
-        clearable
-        hide-hint
-        hide-selected
-        fill-input
-        behavior="menu"
-      >
-        <template v-slot:before>
-          <q-icon name="flight_takeoff" color="primary" class="field-icon" />
-        </template>
-        <template v-slot:option="scope">
-          <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-            <q-item-section avatar>
-              <q-icon name="local_airport" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label v-html="scope.opt.label" />
-              <q-item-label class="text-subtitle1 search__options--suggestion"
-                >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
-              >
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select>
-      <q-select
-        data-test="search-arrival"
-        v-model="arrivalCity"
-        stack-label
-        label="Arrival airport"
-        hint="Mininum 3 characters for autocomplete"
-        class="home-icons search__options--input search__arrival text-bold"
-        input-class="search__options--input"
-        :min-characters="3"
-        :options="$data.airportSearch_suggestionList"
-        option-label="name"
-        option-value="code"
-        map-options
-        emit-value
-        input-debounce="200"
-        @filter="$airportSearch_fuzzySearch"
-        display-value-sanitize
-        use-input
-        item-aligned
-        hide-dropdown-icon
-        clearable
-        hide-hint
-        hide-selected
-        fill-input
-        behavior="menu"
-      >
-        <template v-slot:before>
-          <q-icon name="flight_land" color="primary" class="field-icon" />
-        </template>
-        <template v-slot:option="scope">
-          <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-            <q-item-section avatar>
-              <q-icon name="local_airport" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label v-html="scope.opt.label" />
-              <q-item-label class="text-subtitle1 search__options--suggestion"
-                >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
-              >
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select>
+    <div class="search__options q-mt-xl">
+      <div class="search__options--departure shadow-2 q-mb-xs">
+        <q-select
+          data-test="search-departure"
+          v-model="departureCity"
+          stack-label
+          label="From"
+          placeholder="Where from?"
+          input-class="search__options--input"
+          :min-characters="3"
+          :options="$data.airportSearch_suggestionList"
+          option-label="city"
+          option-value="code"
+          map-options
+          emit-value
+          input-debounce="0"
+          @filter="$airportSearch_fuzzySearch"
+          display-value-sanitize
+          use-input
+          hide-dropdown-icon
+          clearable
+          hide-hint
+          hide-selected
+          fill-input
+          behavior="menu"
+          borderless
+          item-aligned
+        >
+          <template v-slot:append>
+            <q-btn
+              class="search__options--invert"
+              icon="swap_vert"
+              color="primary"
+              round
+              @click="swapDirection"
+            />
+          </template>
+          <template v-slot:no-option>
+            <q-item>
+              <q-item-section class="text-grey"> No results </q-item-section>
+            </q-item>
+          </template>
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+              <q-item-section avatar>
+                <q-icon name="local_airport" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label v-html="scope.opt.label" />
+                <q-item-label class="text-subtitle1 search__options--suggestion"
+                  >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
+                >
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+      </div>
+      <div class="search__options--arrival shadow-2 q-mb-lg">
+        <q-select
+          data-test="search-arrival"
+          v-model="arrivalCity"
+          stack-label
+          label="To"
+          placeholder="Where to?"
+          class="text-bold"
+          input-class="search__options--input"
+          :min-characters="3"
+          :options="$data.airportSearch_suggestionList"
+          option-label="city"
+          option-value="code"
+          map-options
+          emit-value
+          input-debounce="200"
+          @filter="$airportSearch_fuzzySearch"
+          display-value-sanitize
+          use-input
+          hide-dropdown-icon
+          clearable
+          hide-hint
+          hide-selected
+          fill-input
+          behavior="menu"
+          borderless
+          item-aligned
+        >
+          <template v-slot:no-option>
+            <q-item>
+              <q-item-section class="text-grey"> No results </q-item-section>
+            </q-item>
+          </template>
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+              <q-item-section avatar>
+                <q-icon name="local_airport" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label v-html="scope.opt.label" />
+                <q-item-label class="text-subtitle1 search__options--suggestion"
+                  >{{ scope.opt.name }} ({{ scope.opt.code }})</q-item-label
+                >
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+      </div>
 
-      <q-field
-        class="search__date search__options--input"
-        label="Pick a date"
-        stack-label
-      >
-        <template v-slot:before>
-          <q-icon name="event" color="primary" class="field-icon" />
-        </template>
+      <div class="search__options--schedule row">
+        <div class="col-6 shadow-2 search__options--outbound">
+          <q-field
+            class="search__date"
+            label="Outbound"
+            placeholder="When?"
+            stack-label
+            borderless
+            item-aligned
+            clearable
+          >
+            <template v-slot:after>
+              <q-icon name="event" color="primary" class="q-pt-lg" />
+            </template>
 
-        <template v-slot:control>
-          <q-popup-proxy ref="qDateProxy">
-            <div>
-              <q-date
-                v-model="departureDate"
-                mask="dddd, MMM D, YYYY"
-                color="primary"
-                today-btn
-                @input="() => $refs.qDateProxy.hide()"
-              />
-            </div>
-          </q-popup-proxy>
-
-          {{ departureDate }}
-        </template>
-      </q-field>
+            <template v-slot:control>
+              <q-popup-proxy ref="qDateProxy">
+                <div>
+                  <q-date
+                    v-model="departureDate"
+                    mask="MMM D, YYYY"
+                    color="primary"
+                    today-btn
+                    @input="() => $refs.qDateProxy.hide()"
+                    :options="scheduleOptions"
+                  />
+                </div>
+              </q-popup-proxy>
+              {{ departureDate }}
+            </template>
+          </q-field>
+        </div>
+        <div class="col"></div>
+      </div>
     </div>
     <div class="wrapper">
       <q-btn
@@ -200,7 +228,7 @@ export default {
        */
       departureCity: '',
       arrivalCity: '',
-      departureDate: ''
+      departureDate: date.formatDate(Date.now(), 'MMM D, YYYY')
     }
   },
   methods: {
@@ -216,17 +244,50 @@ export default {
           arrival: this.arrivalCity
         }
       })
+    },
+    swapDirection() {
+      let departure = this.departureCity
+      let arrival = this.arrivalCity
+      this.departureCity = arrival
+      this.arrivalCity = departure
+    },
+    scheduleOptions(curDate) {
+      let today = date.formatDate(Date.now(), 'YYYY/MM/DD')
+      return curDate >= today
     }
   }
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @import '../css/app'
 
-.search__options--input
-  padding: 1.3em 0.5em
-  max-width: 30em
-  min-width: 15em
-  margin: auto
+.q-field__label
+  font-weight: bold
+  font-size: 1.2rem !important
+  color: #000000
+  opacity: .6
+  top: 10px
+
+.search__options
+  padding: 10vmin 8vmin
+
+  @media (min-device-width: 700px)
+    padding: 10vmin 20vmin
+
+  @media (min-device-width: 1024px)
+    padding: 10vmin 30vmin
+
+  &--invert
+    top: 30px
+
+  &--departure,
+  &--arrival,
+  &--outbound
+    height: 65px !important
+    border-radius: 5px
+    background-color: white
+
+.q-field__focusable-action
+  padding-top: 25px
 </style>

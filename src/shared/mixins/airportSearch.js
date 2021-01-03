@@ -76,14 +76,11 @@ export const airportSearchMixin = {
           let result = fuse.search(value.toLowerCase())
           this.airportSearch_suggestionList = result.map((i) => i.item)
         },
+        // "ref" is the Vue reference to the QSelect
         (ref) => {
-          if (
-            value !== '' &&
-            ref.options.length > 0 &&
-            ref.optionIndex === -1
-          ) {
+          if (value !== '' && ref.options.length > 0) {
+            ref.setOptionIndex(-1) // reset optionIndex in case there is something selected
             ref.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
-            ref.toggleOption(ref.options[ref.optionIndex], true) // toggle the focused option
           }
         }
       )

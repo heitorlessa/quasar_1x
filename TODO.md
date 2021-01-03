@@ -96,6 +96,17 @@
   - [x] Bring flight no data (prop and header)
   - [x] Convert mounted hook into computed properties
   - [x] Remove unused `hideCard` method in favour of v-close directive
+- [x] Fix search page
+  - [x] Emphasize each field
+  - [x] Move any distraction to the far right (e.g. icons)
+  - [x] Group departure and arrival separately from outbound date
+  - [x] Give extra room for future fields (e.g. return date, class, etc.)
+  - [x] Provide mechanism to swap directions (e.g. from<->to)
+  - [x] Fix keyboard shortcut directions
+  - [x] Fix autosuggestion not being picked up with `enter` key
+  - [x] Show `no results` if airport isn't found
+  - [x] Disable past search dates
+  - [x] Add today's date as initial value for outbound field
 - [ ] Consider using `Logger`
 - [ ] Sync store modules
 - [ ] Apply Filters
@@ -104,7 +115,6 @@
   - [x] Test date range between query
   - [ ] Filter flights with dynamic dep/arr and price range altogether
   - [ ] Highlight when Filters are applied
-  - [ ] Create constants file
 - [ ] Convert into PWA
 
 
@@ -125,6 +135,7 @@ Breaking changes
 * Timeline
 * Upgrade
 * Amplify Authenticator
+* Autosuggestion keyboard navigation and auto-selection
 
 http://localhost:8080/#/search/results?date=2020-12-30&departure=LGW&arrival=MAD
 
