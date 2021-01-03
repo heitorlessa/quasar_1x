@@ -7,12 +7,12 @@
       :date="date"
     />
     <div class="heading">
-      <div class="q-headline text-primary text-center">
+      <div class="text-primary text-center">
         <div class="loader" v-if="loading">
           <flight-loader></flight-loader>
         </div>
         <div v-if="flights.length && !loading">
-          <span class="results__headline text-h6" data-test="results-headline"
+          <span class="results__headline text-h5" data-test="results-headline"
             >Select your flight</span
           >
         </div>
