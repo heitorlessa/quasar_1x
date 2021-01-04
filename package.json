@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^0.2.27",
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.9.12",
     "aws-amplify": "^3.3.8",
     "axios": "^0.18.1",
     "core-js": "^3.7.0",
@@ -19,12 +19,12 @@
     "eslint-plugin-prettier": "^3.1.4",
     "fuse.js": "^6.4.3",
     "prettier": "^2.1.2",
-    "quasar": "^1.0.0",
+    "quasar": "^1.15.0",
     "vue-content-loader": "^0.2.3",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0",
+    "@quasar/app": "^2.1.14",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
