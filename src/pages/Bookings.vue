@@ -124,4 +124,7 @@ export default {
 
   &__card
     max-width: 25rem !important
+
+.q-timeline__subtitle
+  opacity: 0.7 !important
 </style>
