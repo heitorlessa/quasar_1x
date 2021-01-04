@@ -21,7 +21,7 @@
           input-class="search__options--input"
           :min-characters="3"
           :options="$data.airportSearch_suggestionList"
-          option-label="city"
+          :option-label="displayLabel"
           option-value="code"
           map-options
           emit-value
@@ -78,7 +78,7 @@
           input-class="search__options--input"
           :min-characters="3"
           :options="$data.airportSearch_suggestionList"
-          option-label="city"
+          :option-label="displayLabel"
           option-value="code"
           map-options
           emit-value
@@ -259,6 +259,13 @@ export default {
     scheduleOptions(curDate) {
       let today = date.formatDate(Date.now(), 'YYYY/MM/DD')
       return curDate >= today
+    },
+    displayLabel(label) {
+      // Abort if init or invalid label object
+      let isLabel = Object(label) === label && 'city' in label
+      if (!isLabel) return null
+
+      return `${label.city} (${label.code})`
     }
   }
 }
