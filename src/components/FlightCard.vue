@@ -9,26 +9,24 @@
         <q-list>
           <div class="row text-uppercase text-bold flight__headline">
             <div class="col text-left">Departure</div>
-            <div class="col text-right" data-test="flight-long-date">
-              Arrival
-            </div>
+            <div class="col text-right">Arrival</div>
           </div>
 
           <div class="row text-primary flight__direction items-baseline">
             <div class="col flight__left-details">
               <div
                 class="text-h5 flight__departure text-uppercase"
-                data-test="flight-departure-code"
+                data-test="flight-departure-time"
               >
-                {{ details.departureAirportCode }}
+                {{ details.departureTime }}
               </div>
             </div>
             <div class="col flight__right-details text-right">
               <div
                 class="text-h5 flight__arrival text-uppercase"
-                data-test="flight-arrival-code"
+                data-test="flight-arrival-time"
               >
-                {{ details.arrivalAirportCode }}
+                {{ details.arrivalTime }}
               </div>
             </div>
           </div>
@@ -47,9 +45,9 @@
                 <q-icon class="flight__icon-caption" name="flight_takeoff" />
                 <div
                   class="q-ml-sm text-body-1 text-bold q-pt-xs"
-                  data-test="flight-departure-time"
+                  data-test="flight-departure-code"
                 >
-                  {{ details.departureTime }}
+                  {{ details.departureAirportCode }}
                 </div>
               </div>
             </div>
@@ -69,9 +67,9 @@
                 <q-icon class="flight__icon-caption" name="flight_land" />
                 <div
                   class="q-ml-sm text-caption text-bold q-pt-xs"
-                  data-test="flight-arrival-time"
+                  data-test="flight-arrival-code"
                 >
-                  {{ details.arrivalTime }}
+                  {{ details.arrivalAirportCode }}
                 </div>
               </div>
             </div>
@@ -82,7 +80,10 @@
             v-if="!booking && details.ticketPrice && details.flightNumber"
           >
             <q-separator class="flight__separator" />
-            <div class="col flight__left-details" v-if="details.ticketPrice">
+            <div
+              class="col flight__left-details text-grey-9"
+              v-if="details.ticketPrice"
+            >
               <div
                 class="text-uppercase text-grey-9 flight__price"
                 data-test="flight-price"
@@ -95,7 +96,7 @@
               class="col flight__right-details text-right"
               v-if="details.flightNumber"
             >
-              <div class="row inline">
+              <div class="row inline text-grey-9">
                 <div class="text-caption capitalize text-bold">Flight</div>
                 <div
                   class="q-ml-xs text-caption text-bold"
