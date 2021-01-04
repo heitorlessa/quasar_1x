@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row q-pt-lg">
     <div class="col-12 wrapper">
       <div class="heading">
         <div
@@ -39,44 +39,8 @@
             />
           </div>
         </div>
-        <div class="row">
-          <div class="profile__preferences--heading col-12 text-left q-mt-lg">
-            <h6 class="bg-grey-1 text-bold q-mb-sm q-mt-md q-pa-sm q-pl-lg">
-              Preferences
-            </h6>
-          </div>
-          <div class="profile__preferences--options col-12">
-            <q-list highlight no-border class="q-ml-md" link>
-              <q-item
-                clickable
-                v-ripple
-                @click="choosePreference('diet')"
-                class="q-pa-none q-mt-sm profile__preferences--option"
-              >
-                <q-item-section avatar>
-                  <q-icon name="tune" size="2.6rem" />
-                </q-item-section>
-                <q-item-section class="text-h6 text-left"
-                  >Dietary requirements</q-item-section
-                >
-              </q-item>
-              <q-item
-                clickable
-                v-ripple
-                @click="choosePreference('luggage')"
-                class="q-pa-none q-mt-sm profile__preferences--option"
-              >
-                <q-item-section avatar>
-                  <q-icon name="tune" size="2.6rem" />
-                </q-item-section>
-                <q-item-section class="text-h6 text-left"
-                  >Luggage</q-item-section
-                >
-              </q-item>
-            </q-list>
-          </div>
-        </div>
-        <div class="row">
+
+        <div class="row q-pt-xl">
           <amplify-sign-out data-test="authenticator"></amplify-sign-out>
         </div>
       </div>
@@ -88,41 +52,6 @@
 // @ts-nocheck
 import { mapState, mapGetters } from 'vuex'
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components'
-
-const defaultDialogOpts = {
-  cancel: true,
-  preventClose: true,
-  color: 'secondary'
-}
-
-const luggageDialog = {
-  title: 'Luggage preference',
-  message: 'Number of check-in luggages.',
-  options: {
-    type: 'radio',
-    model: 'opt2',
-    items: [
-      { label: '1', value: '1', color: 'primary' },
-      { label: '2', value: '2' },
-      { label: '3', value: '3' }
-    ]
-  }
-}
-
-const dietaryDialog = {
-  title: 'Dietary preference',
-  message: 'Choose your dietary requirement.',
-  options: {
-    type: 'radio',
-    model: 'opt2',
-    items: [
-      { label: 'Vegatarian', value: 'vegetarian', color: 'secondary' },
-      { label: 'Vegan', value: 'vegan' },
-      { label: 'Dairy-free', value: 'dairy-free' },
-      { label: 'Regular', value: 'regular' }
-    ]
-  }
-}
 
 /**
  *
@@ -150,21 +79,6 @@ export default {
     },
     progressPercentage() {
       return this.loyalty.percentage / 100 || 0
-    }
-  },
-  methods: {
-    choosePreference(option) {
-      let dialog = {
-        ...defaultDialogOpts,
-        ...(option === 'luggage' ? luggageDialog : dietaryDialog)
-      }
-
-      this.$q
-        .dialog(dialog)
-        .onOk((choice) => {
-          this.$q.notify({ type: 'positive', message: `${option}: ${choice}` })
-        })
-        .onCancel(() => 'No option selected')
     }
   },
   async mounted() {
@@ -220,10 +134,6 @@ a
 
 .q-linear-progress
   width: 90% !important
-
-.profile__preferences-option
-  &:hover
-    cursor: pointer
 
 amplify-sign-out
     padding: 0vmin 2vmin
