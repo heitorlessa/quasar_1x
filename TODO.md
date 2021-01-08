@@ -107,9 +107,18 @@
   - [x] Show `no results` if airport isn't found
   - [x] Disable past search dates
   - [x] Add today's date as initial value for outbound field
-- [ ] Consider using `Logger`
+- [ ] Fix broken swap destination in Search page
+  - [ ] Replicate in codesandbox before opening issue
+  - Note: Vue underlying models are changing but vue component, and it's only departureCity
+- [ ] Double check go back behaviour between Flight Result & Selection
+  - [ ] Investigate changing routing props when toolbar flight direction changes
+  - [ ] Might be an overkill 
+- [ ] Replace mock console.log w/ an actual `Logger`
 - [ ] Sync store modules
-- [ ] Apply Filters
+
+**Non-workshop version**
+
+- [ ] Apply Filters - Non-workshop version
   - [ ] Refactor fetchFlights to use additional filters
   - [ ] Create a separate function to build Filters
   - [x] Test date range between query
@@ -136,6 +145,8 @@ Breaking changes
 * Upgrade
 * Amplify Authenticator
 * Autosuggestion keyboard navigation and auto-selection
+* QSelect labels
+* Fuse fuzzy search
 
 http://localhost:8080/#/search/results?date=2020-12-30&departure=LGW&arrival=MAD
 

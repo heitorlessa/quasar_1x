@@ -82,7 +82,7 @@
           option-value="code"
           map-options
           emit-value
-          input-debounce="200"
+          input-debounce="0"
           @filter="$airportSearch_fuzzySearch"
           display-value-sanitize
           use-input
@@ -253,8 +253,12 @@ export default {
     swapDirection() {
       let departure = this.departureCity
       let arrival = this.arrivalCity
+      console.log(`Swapping ${departure} with ${arrival}`)
       this.departureCity = arrival
       this.arrivalCity = departure
+      console.log(
+        `Swapped: ${arrival} is now departure, and ${departure} is arrival`
+      )
     },
     scheduleOptions(curDate) {
       let today = date.formatDate(Date.now(), 'YYYY/MM/DD')
@@ -276,9 +280,9 @@ export default {
 
 .q-field__label
   font-weight: bold
-  font-size: 1.2rem !important
-  color: #000000
-  opacity: .7
+  font-size: 1.25rem !important
+  color: $field-label-color
+  opacity: .78
   top: 10px
 
 .search__options
