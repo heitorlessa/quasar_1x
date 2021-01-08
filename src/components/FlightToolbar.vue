@@ -28,6 +28,7 @@
           input-debounce="200"
           @filter="$airportSearch_fuzzySearch"
           display-value-sanitize
+          behavior="dialog"
         >
           <span class="search__options--editable"></span>
           <template v-slot:option="scope">
@@ -70,6 +71,7 @@
           input-debounce="200"
           @filter="$airportSearch_fuzzySearch"
           display-value-sanitize
+          behavior="dialog"
         >
           <span class="search__options--editable"></span>
           <template v-slot:option="scope">
