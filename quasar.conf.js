@@ -123,7 +123,7 @@ module.exports = function (/* ctx */) {
         name: 'Serverless Airline',
         short_name: 'Serverless Airline',
         description:
-          'Serverless Airline Booking is a complete web application that provides Flight Search, Payment, Booking and Loyalty points including end-to-end testing, GraphQL and CI/CD',
+          'Serverless Airline Booking is a web application that provides Flight Search, Payment, Booking and Loyalty points',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
