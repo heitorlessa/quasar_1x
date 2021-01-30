@@ -229,6 +229,9 @@ import { date } from 'quasar'
 import FlightToolbarFilters from './FlightToolbarFilters.vue'
 import { SortPreference } from '../shared/enums'
 import { airportSearchMixin } from '../shared/mixins/'
+import { Logger } from 'aws-amplify'
+
+const logger = new Logger('Toolbar')
 
 export default {
   /**
@@ -297,8 +300,8 @@ export default {
         pricingRange: pricing
       }
 
-      console.info('Applying filters')
-      console.table(filters)
+      logger.debug('Applying filters')
+      logger.debug(filters)
     },
     toggleFilters() {
       this.$refs['filters'].show()
@@ -306,6 +309,7 @@ export default {
     async updateDestination() {
       // Update route props, and browser history to ensure back button works
       // if fetch fails, a page refresh will also lead to the intended behaviour
+      logger.debug('Updating browser history')
       this.$router.push({
         location: this.$router.currentRoute.name,
         query: {
@@ -315,6 +319,7 @@ export default {
         }
       })
 
+      logger.debug('Fetching flights using new parameters')
       await this.$store.dispatch('catalog/fetchFlights', {
         date: this.departureDate,
         departure: this.departureCity,
@@ -330,6 +335,7 @@ export default {
      * sortResults('lowestPrice')
      */
     sortResults(preference) {
+      logger.debug(`Sorting flights with ${preference} preference`)
       this.$store.dispatch('catalog/sortFlightsByPreference', preference)
       this.sortSelection = preference
     }

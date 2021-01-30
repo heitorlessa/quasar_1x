@@ -52,6 +52,9 @@
 // @ts-nocheck
 import { mapState, mapGetters } from 'vuex'
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components'
+import { Logger } from 'aws-amplify'
+
+const logger = new Logger('Profile')
 
 /**
  *
@@ -105,7 +108,7 @@ export default {
         await this.$store.dispatch('loyalty/fetchLoyalty')
       }
     } catch (error) {
-      console.error(error)
+      logger.error('Error while fetching loyalty data: ', error)
       this.$q.notify(
         `Error while fetching Loyalty - Check browser console messages`
       )

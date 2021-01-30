@@ -184,6 +184,9 @@ import { validationMixin } from 'vuelidate'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { airportList } from '../shared/mixins/airportSearch'
 import { airportSearchMixin } from '../shared/mixins'
+import { Logger } from 'aws-amplify'
+
+const logger = new Logger('Search')
 
 /**
  * Validate given input against list of valid IATA airports
@@ -251,11 +254,10 @@ export default {
     swapDirection() {
       let departure = this.departureCity
       let arrival = this.arrivalCity
-      console.log(`Swapping ${departure} with ${arrival}`)
       this.departureCity = arrival
       this.arrivalCity = departure
-      console.log(
-        `Swapped: ${arrival} is now departure, and ${departure} is arrival`
+      logger.debug(
+        `Swapped: ${arrival.code} is now departure, and ${departure.code} is arrival`
       )
     },
     scheduleOptions(curDate) {

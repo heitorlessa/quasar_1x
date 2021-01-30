@@ -23,7 +23,9 @@
 // @ts-ignore
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components'
 import { Hub } from 'aws-amplify'
+import { Logger } from 'aws-amplify'
 
+const logger = new Logger('Authentication')
 const noAuthMessage = 'user is undefined'
 const authMessageChannel = 'UI Auth'
 
@@ -45,12 +47,12 @@ export default {
       this.user = authData
 
       if (authState === AuthState.SignIn) {
-        console.info('Customer needs to sign in yet...')
+        logger.debug('Customer needs to sign in yet...')
       }
 
       if (authState === AuthState.SignedIn) {
-        console.log('user successfully signed in!')
-        console.log('user data: ', authData)
+        logger.debug('user successfully signed in!')
+        logger.debug('user data: ', authData)
         this.$router.push({ name: this.redirectTo })
       }
     })

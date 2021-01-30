@@ -127,6 +127,10 @@ import FlightLoader from '../components/FlightLoader'
 import { validationMixin } from 'vuelidate'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapState, mapGetters } from 'vuex'
+import { Logger } from 'aws-amplify'
+
+const logger = new Logger('FlightSelection')
+
 var stripe, card
 
 /**
@@ -278,11 +282,11 @@ export default {
           this.$router.push({ name: 'bookings' })
         }, 3000)
       } catch (err) {
+        logger.error('Error while creating a new booking: ', err)
         this.$q.loading.hide()
         this.$q.notify(
           `Error while creating your Booking - Check browser console messages`
         )
-        console.error(err)
       }
     },
     /**

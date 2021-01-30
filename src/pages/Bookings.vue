@@ -44,6 +44,9 @@
 // @ts-nocheck
 import BookingFlight from '../components/BookingFlight'
 import { mapState, mapGetters } from 'vuex'
+import { Logger } from 'aws-amplify'
+
+const logger = new Logger('Bookings')
 
 /**
  * Booking view displays bookings from authenticated customer.
@@ -75,7 +78,7 @@ export default {
           this.paginationToken
         )
       } catch (error) {
-        console.error(error)
+        logger.error('Error while fetching bookings: ', error)
         this.$q.notify(
           `Unable to fetch bookings - Check browser console messages`
         )

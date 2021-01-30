@@ -243,7 +243,9 @@
 // @ts-ignore
 import { date } from 'quasar'
 import { mapGetters } from 'vuex'
+import { Logger } from 'aws-amplify'
 
+const logger = new Logger('ToolbarFilters')
 const defaults = Object.freeze({
   pricing: {
     min: 100,
@@ -263,7 +265,7 @@ export default {
   name: 'FlightToolbarFilters',
   methods: {
     resetFilters: function () {
-      console.info('Resetting filter values to default')
+      logger.debug('Resetting filter values to default')
       this.departureFilter = {
         min: defaults.schedule.min,
         max: defaults.schedule.max
@@ -283,6 +285,7 @@ export default {
      * @event apply
      */
     triggerFilters: function () {
+      logger.debug("Propagating 'apply' event to apply filters")
       this.$emit('apply', {
         pricing: this.priceFilter,
         departure: this.departureFilter,
