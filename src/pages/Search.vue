@@ -18,13 +18,13 @@
           stack-label
           label="From"
           placeholder="Where from?"
+          class="text-bold"
           input-class="search__options--input"
           :min-characters="3"
           :options="$data.airportSearch_suggestionList"
           :option-label="displayLabel"
           option-value="code"
           map-options
-          emit-value
           input-debounce="0"
           @filter="$airportSearch_fuzzySearch"
           display-value-sanitize
@@ -81,7 +81,6 @@
           :option-label="displayLabel"
           option-value="code"
           map-options
-          emit-value
           input-debounce="0"
           @filter="$airportSearch_fuzzySearch"
           display-value-sanitize
@@ -199,7 +198,7 @@ const isAirport = (value) => {
     return false
   }
 
-  return airportList.some((airport) => airport.code === value)
+  return airportList.some((airport) => airport.code === value.code)
 }
 
 export default {
@@ -245,8 +244,8 @@ export default {
         name: 'searchResults',
         query: {
           date: date.formatDate(this.departureDate, 'YYYY-MM-DD'),
-          departure: this.departureCity,
-          arrival: this.arrivalCity
+          departure: this.departureCity.code,
+          arrival: this.arrivalCity.code
         }
       })
     },
