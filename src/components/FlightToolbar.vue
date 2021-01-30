@@ -5,7 +5,7 @@
     >
       <div class="flight__filters--departure col">
         <q-select
-          v-model="departure"
+          v-model="departureCity"
           class="flight__departure--toolbar no-padding"
           label="From"
           borderless
@@ -27,6 +27,7 @@
           emit-value
           input-debounce="200"
           @filter="$airportSearch_fuzzySearch"
+          @input="updateDestination"
           display-value-sanitize
           behavior="dialog"
         >
@@ -48,7 +49,7 @@
       </div>
       <div class="flight__filters--arrival col">
         <q-select
-          v-model="arrival"
+          v-model="arrivalCity"
           class="flight__arrival--toolbar no-padding"
           label="To"
           borderless
@@ -70,6 +71,7 @@
           emit-value
           input-debounce="200"
           @filter="$airportSearch_fuzzySearch"
+          @input="updateDestination"
           display-value-sanitize
           behavior="dialog"
         >
@@ -99,13 +101,13 @@
           :disable="this.$router.currentRoute.name != 'searchResults'"
         >
           <template v-slot:control>
-            <q-popup-proxy ref="qDateProxy">
+            <q-popup-proxy>
               <div>
                 <q-date
-                  v-model="date"
-                  mask="dddd, MMM D, YYYY"
+                  v-model="departureDate"
+                  mask="YYYY-MM-DD"
                   today-btn
-                  @input="() => $refs.qDateProxy.hide()"
+                  @input="updateDestination"
                 />
               </div>
             </q-popup-proxy>
@@ -224,7 +226,6 @@
 
 <script>
 import { date } from 'quasar'
-import { mapGetters } from 'vuex'
 import FlightToolbarFilters from './FlightToolbarFilters.vue'
 import { SortPreference } from '../shared/enums'
 import { airportSearchMixin } from '../shared/mixins/'
@@ -236,38 +237,30 @@ export default {
    *
    * @example
    *
-   * const flight = new Flight(flightData)
-   *
-   * <flight-toolbar
-   *  :departure="flight.departureAirportCode"
-   *  :arrival="flight.arrivalAirportCode">
-   * </flight-toolbar>
+   * <flight-toolbar />
    */
   name: 'FlightToolbar',
   mixins: [airportSearchMixin],
   components: {
     FlightToolbarFilters
   },
-  props: {
-    /**
-     * @param {string} departure - Sets departure airport code (IATA)
-     */
-    departure: { type: String, required: true },
-    /**
-     * @param {string} arrival - Sets arrival airport code (IATA)
-     */
-    arrival: { type: String, required: true },
-    date: { type: String, required: true }
-  },
   data() {
     return {
       sortSelection: '',
-      SortPreference
+      SortPreference,
+      /**
+       * @param {string} departureCity - Departure city IATA airport code
+       * @param {string} arrivalCity - Arrival city IATA airport code
+       * @param {string} departureDate - Departure date (e.g. 2021-01-30)
+       */
+      departureCity: this.$router.currentRoute.query.departure,
+      arrivalCity: this.$router.currentRoute.query.arrival,
+      departureDate: this.$router.currentRoute.query.date
     }
   },
   computed: {
     shortDate() {
-      return date.formatDate(this.date, 'ddd, DD MMM')
+      return date.formatDate(this.departureDate, 'ddd, DD MMM')
     }
   },
   methods: {
@@ -309,6 +302,24 @@ export default {
     },
     toggleFilters() {
       this.$refs['filters'].show()
+    },
+    async updateDestination() {
+      // Update route props, and browser history to ensure back button works
+      // if fetch fails, a page refresh will also lead to the intended behaviour
+      this.$router.push({
+        location: this.$router.currentRoute.name,
+        query: {
+          date: this.departureDate,
+          departure: this.departureCity,
+          arrival: this.arrivalCity
+        }
+      })
+
+      await this.$store.dispatch('catalog/fetchFlights', {
+        date: this.departureDate,
+        departure: this.departureCity,
+        arrival: this.arrivalCity
+      })
     },
     /**
      * Sort flight results by a given preference e.g. price, schedule

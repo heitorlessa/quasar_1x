@@ -1,11 +1,6 @@
 <template>
   <q-page class="container">
-    <flight-toolbar
-      v-if="date && departure && arrival"
-      :departure="departure"
-      :arrival="arrival"
-      :date="date"
-    />
+    <flight-toolbar v-if="date && departure && arrival" />
     <div class="heading">
       <div class="text-primary text-center">
         <div class="loader" v-if="loading">

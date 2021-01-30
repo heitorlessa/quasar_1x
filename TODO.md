@@ -107,12 +107,15 @@
   - [x] Show `no results` if airport isn't found
   - [x] Disable past search dates
   - [x] Add today's date as initial value for outbound field
-- [ ] Fix broken swap destination in Search page
-  - [ ] Replicate in codesandbox before opening issue
-  - Note: Vue underlying models are changing but vue component, and it's only departureCity
-- [ ] Double check go back behaviour between Flight Result & Selection
-  - [ ] Investigate changing routing props when toolbar flight direction changes
-  - [ ] Might be an overkill 
+- [x] Fix broken swap destination in Search page
+  - [x] Replicate in codesandbox before opening issue in Quasar
+  - [x] Remove emit-value and use object instead to correct reactivity
+- [x] Update search when toolbar is updated
+  - [x] Remove FlightToolbar props in favour of data
+  - [x] Ensures browser history aligns with customer intention
+    - [x] Customers should be able to use `back` button
+    - [x] If flight fetch fails for any reason, a page refresh should lead to the intended behaviour too
+  - [x] Update FlightResults to reflect new FlightToolbar behaviour
 - [ ] Replace mock console.log w/ an actual `Logger`
 - [ ] Sync store modules
 
@@ -142,16 +145,10 @@ Breaking changes
 * Notifications
 * Modal -> Dialog
 * Timeline
-* Upgrade
 * Amplify Authenticator
 * Autosuggestion keyboard navigation and auto-selection
 * QSelect labels
-* Fuse fuzzy search
-
-http://localhost:8080/#/search/results?date=2020-12-30&departure=LGW&arrival=MAD
-
-
-Invalidate 12AM - 5am
+* Fuse fuzzy search props and behaviour
 
 ## Query between dates
 
@@ -184,20 +181,21 @@ query fetchFlights {
     }
   }
 }
-
 ```
 
+```javascript
 const flightFilter = {
     departureDate: {
-    between: ['2020-02-06T08:00', '2020-02-06T10:45']
+      between: ['2020-02-06T08:00', '2020-02-06T10:45']
     },
     arrivalDate: {
-    between: ['2020-02-06T12:00', '2020-02-06T14:45']
+      between: ['2020-02-06T12:00', '2020-02-06T14:45']
     },
     departureAirportCode: {
-    eq: 'LGW'
+      eq: 'LGW'
     },
     arrivalAirportCode: {
-    eq: 'MAD'
+      eq: 'MAD'
     }
 }
+```
