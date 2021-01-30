@@ -100,9 +100,6 @@
     background-color: white
     padding: 0 0.1rem
 
-  &--header
-
-
 
 .q-timeline__title
   font-size: 1rem !important
@@ -135,7 +132,7 @@ export default {
      */
     reference: String,
     name: String,
-    flightNumber: String,
+    flightNumber: Number,
     departureDate: [String, Date],
     departureAirportName: String,
     departureIata: {
