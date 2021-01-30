@@ -129,7 +129,6 @@
             <template v-slot:after>
               <q-icon name="event" color="primary" class="q-pt-lg" />
             </template>
-
             <template v-slot:control>
               <q-popup-proxy ref="qDateProxy">
                 <div>
@@ -291,7 +290,7 @@ export default {
     padding: 10vmin 20vmin
 
   @media (min-device-width: 1024px)
-    padding: 10vmin 30vmin
+    padding: 10vmin 23vmin
 
   &--invert
     top: 30px
@@ -302,6 +301,9 @@ export default {
     height: 65px !important
     border-radius: 5px
     background-color: white
+
+.search__date
+  padding: 8px 14px !important
 
 .q-field__focusable-action
   padding-top: 25px
