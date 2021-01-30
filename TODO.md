@@ -116,8 +116,8 @@
     - [x] Customers should be able to use `back` button
     - [x] If flight fetch fails for any reason, a page refresh should lead to the intended behaviour too
   - [x] Update FlightResults to reflect new FlightToolbar behaviour
-- [ ] Replace mock console.log w/ an actual `Logger`
-- [ ] Sync store modules
+- [x] Replace console.log w/ an actual `Logger`
+  - [x] Leave console.log in store untouched to aid workshop discovery phase
 
 **Non-workshop version**
 
@@ -128,7 +128,7 @@
   - [ ] Filter flights with dynamic dep/arr and price range altogether
   - [ ] Highlight when Filters are applied
 - [ ] Convert into PWA
-
+- [ ] Sync store modules
 
 **Outside the scope**
 
